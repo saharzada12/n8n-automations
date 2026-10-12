@@ -1,0 +1,835 @@
+{
+    "id": "KGfEn542PRZdVJBI",
+    "name": "linkedin uploader",
+    "active": true,
+    "isArchived": false,
+    "versionId": "e2807b2d-fe06-4d18-86e6-fe1d070893f9",
+    "activeVersionId": "e2807b2d-fe06-4d18-86e6-fe1d070893f9",
+    "triggerCount": 1,
+    "nodeCount": 21,
+    "createdAt": "2026-09-14T19:06:24.202Z",
+    "updatedAt": "2026-10-10T20:48:02.583Z",
+    "settings": {
+        "executionOrder": "v1",
+        "binaryMode": "separate",
+        "timezone": "Etc/GMT-2",
+        "availableInMCP": true
+    },
+    "tags": [],
+    "parentFolderId": null,
+    "connections": {
+        "Schedule Trigger": {
+            "main": [
+                [
+                    {
+                        "node": "ask me the topic",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "ask me the topic": {
+            "main": [
+                [
+                    {
+                        "node": "prepare topic",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "prepare topic": {
+            "main": [
+                [
+                    {
+                        "node": "topic has picture?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "topic has picture?": {
+            "main": [
+                [
+                    {
+                        "node": "create a draft (with picture)",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "create a draft",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "create a draft (with picture)": {
+            "main": [
+                [
+                    {
+                        "node": "set current draft",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "create a draft": {
+            "main": [
+                [
+                    {
+                        "node": "set current draft",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "set current draft": {
+            "main": [
+                [
+                    {
+                        "node": "review draft",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "review draft": {
+            "main": [
+                [
+                    {
+                        "node": "approved?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "approved?": {
+            "main": [
+                [
+                    {
+                        "node": "prep linkedin post",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "revise draft",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "revise draft": {
+            "main": [
+                [
+                    {
+                        "node": "set current draft",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "prep linkedin post": {
+            "main": [
+                [
+                    {
+                        "node": "final post has picture?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "final post has picture?": {
+            "main": [
+                [
+                    {
+                        "node": "send final preview (with picture)",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "send final preview",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "send final preview (with picture)": {
+            "main": [
+                [
+                    {
+                        "node": "wait for Publish click",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "send final preview": {
+            "main": [
+                [
+                    {
+                        "node": "wait for Publish click",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "wait for Publish click": {
+            "main": [
+                [
+                    {
+                        "node": "publish clicked?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "publish clicked?": {
+            "main": [
+                [
+                    {
+                        "node": "get approved post",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                []
+            ]
+        },
+        "get approved post": {
+            "main": [
+                [
+                    {
+                        "node": "has image?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "has image?": {
+            "main": [
+                [
+                    {
+                        "node": "post with picture",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "post text only",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "field": "cronExpression",
+                            "expression": "0 10 4-31/5 * *"
+                        }
+                    ]
+                }
+            },
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1.4,
+            "position": [
+                0,
+                -128
+            ],
+            "id": "de8a1e6e-c7dd-4245-a5b9-c5d61db818b7",
+            "name": "Schedule Trigger"
+        },
+        {
+            "parameters": {
+                "operation": "sendAndWait",
+                "sendTo": "you@example.com",
+                "subject": "What should this week's LinkedIn post be about?",
+                "message": "What do you want this week's LinkedIn post to be about? You can also upload a picture to post with it (optional).",
+                "responseType": "customForm",
+                "formFields": {
+                    "values": [
+                        {
+                            "fieldLabel": "topic",
+                            "fieldType": "textarea",
+                            "requiredField": true
+                        },
+                        {
+                            "fieldLabel": "picture (optional)",
+                            "fieldType": "file",
+                            "acceptFileTypes": ".jpg, .jpeg, .png, .webp"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.gmail",
+            "typeVersion": 2.2,
+            "position": [
+                224,
+                -128
+            ],
+            "id": "93023011-4836-42c9-bf12-ce7bacc72a29",
+            "name": "ask me the topic",
+            "webhookId": "b34d58d8-015d-4182-89e9-dbd2ba0f6232",
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Gmail account"
+                }
+            }
+        },
+        {
+            "id": "c255499b-f42c-4429-ae52-b8f69c141cd5",
+            "name": "prepare topic",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                448,
+                -128
+            ],
+            "parameters": {
+                "mode": "runOnceForEachItem",
+                "jsCode": "const findImageKey = (b) => Object.keys(b || {}).find(k => (b[k]?.mimeType || '').startsWith('image/')) || '';\nconst imageKey = findImageKey($input.item.binary);\nconst binary = imageKey ? { image: $input.item.binary[imageKey] } : {};\nreturn {\n  json: { topic: $json.data?.topic || '', has_image: Boolean(imageKey) },\n  binary\n};"
+            }
+        },
+        {
+            "id": "15e6d249-fa5b-4e5c-af19-6c624230ce71",
+            "name": "topic has picture?",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.3,
+            "position": [
+                672,
+                -128
+            ],
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 3
+                    },
+                    "conditions": [
+                        {
+                            "id": "72ada9fa-7ffe-4abf-adbc-7628d78defd2",
+                            "leftValue": "={{ $json.has_image }}",
+                            "rightValue": "",
+                            "operator": {
+                                "type": "boolean",
+                                "operation": "true",
+                                "singleValue": true
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            }
+        },
+        {
+            "id": "fde0a8f0-72d0-4c7f-9c2d-dda2a2f6e25d",
+            "name": "create a draft (with picture)",
+            "type": "@n8n/n8n-nodes-langchain.anthropic",
+            "typeVersion": 1,
+            "position": [
+                896,
+                -240
+            ],
+            "parameters": {
+                "resource": "text",
+                "operation": "message",
+                "modelId": {
+                    "__rl": true,
+                    "mode": "list",
+                    "value": "claude-sonnet-5-5",
+                    "cachedResultName": "claude-sonnet-5-5"
+                },
+                "messages": {
+                    "values": [
+                        {
+                            "content": "=Write a LinkedIn post for me about the topic I chose. It is only a draft: it will be emailed to me for review, nothing is published automatically.\n\n==================================================\nTOPIC I CHOSE\n==================================================\n\n{{ $json.topic }}\n\n{{ $json.has_image ? \"I am attaching the picture that will be posted with this text. Look at it and, if it fits naturally, refer to what it actually shows (for example \\\"the screenshot below shows...\\\"). Do not describe it in detail and do not invent anything that is not visible.\" : \"\" }}\n\n==================================================\nABOUT ME\n==================================================\n\n[PERSONAL BACKGROUND REDACTED FOR PUBLIC REPO - originally a short first-person bio: field of study, technical interests, and skills. Replace this block with your own background before using.]\n\n==================================================\nHOW IT MUST SOUND: A REAL PERSON, NOT AI\n==================================================\n\nWrite in first person, the way I would explain something to a colleague over coffee. Plain words. Professional but relaxed.\n\nDo this:\nOpen with something concrete: a specific moment, a problem I hit, something that surprised me, or a small result. Not a generic statement about the industry.\nFocus on ONE idea. Do not try to cover everything about the topic.\nUse specific details (a tool name, what broke, what I tried, what I noticed) instead of abstract claims.\nVary sentence length. Some short. Some longer and more detailed.\nIt is fine to admit what I am still figuring out or what went wrong.\nWrite in short paragraphs of 1 to 3 sentences with a blank line between them. Do not put every sentence on its own line.\n\nNever do this (these make a post look AI generated):\nNever use any dash character: no \"-\", no \"\u2013\", no \"\u2014\". Use commas, periods or parentheses instead. Write \"hands on\", not hands-on.\nNever use these words: delve, leverage, harness, unlock, unleash, elevate, empower, seamless, seamlessly, robust, cutting edge, game changer, revolutionize, landscape, realm, tapestry, testament, pivotal, crucial, foster, synergy, transformative, navigate (in the figurative sense), embark, journey (for a career or learning).\nNever use these patterns: \"In today's fast paced world\", \"I'm thrilled / excited to share\", \"Let's dive in\", \"Here's the thing\", \"The future is here\", \"It's not just X, it's Y\", \"This isn't about X. It's about Y.\", \"Spoiler:\", \"Let that sink in\", \"And that's the beauty of\".\nDo not use lists of three adjectives or three parallel phrases as a rhetorical device.\nDo not open with a question or with a one word line.\nNo bullet points, numbered \"lessons\", bold text, or Markdown headings.\nNo motivational moral at the end and no engagement bait like \"Agree?\" or \"What do you think? Comment below!\".\nAt most one emoji in the whole post (zero is fine).\n\n==================================================\nLENGTH\n==================================================\n\nMedium: between 170 and 250 words, not counting hashtags. Not a short teaser, not an essay.\n\n==================================================\nENDING AND HASHTAGS\n==================================================\n\nEnd naturally, with either a genuine, specific question to other engineers or a plain closing thought.\nPut 3 or 4 relevant hashtags on the last line.\n\n==================================================\nACCURACY\n==================================================\n\nDo not invent projects, work experience, achievements, certifications, companies, metrics, results, personal stories or technologies I used.\nIf the topic does not say I built something, write about it as something I have been learning or exploring (\"I've been experimenting with...\", not \"I built a production system...\").\n\n==================================================\nFINAL CHECK BEFORE YOU ANSWER\n==================================================\n\nRe read the post. Remove every dash character and every word or pattern from the \"Never\" list. Check the length is 170 to 250 words.\n\nReturn ONLY the post text. No title, no explanation, no quotes around it, no \"Here is your post\".",
+                            "role": "user"
+                        }
+                    ]
+                },
+                "simplify": true,
+                "options": {
+                    "includeMergedResponse": true,
+                    "maxTokens": 2048
+                },
+                "addAttachments": true,
+                "attachmentsInputType": "binary",
+                "binaryPropertyName": "image"
+            },
+            "credentials": {
+                "anthropicApi": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Anthropic account"
+                }
+            }
+        },
+        {
+            "id": "08d2d5d2-719c-4124-89f7-31796b493257",
+            "name": "create a draft",
+            "type": "@n8n/n8n-nodes-langchain.anthropic",
+            "typeVersion": 1,
+            "position": [
+                896,
+                -32
+            ],
+            "parameters": {
+                "resource": "text",
+                "operation": "message",
+                "modelId": {
+                    "__rl": true,
+                    "mode": "list",
+                    "value": "claude-sonnet-5-5",
+                    "cachedResultName": "claude-sonnet-5-5"
+                },
+                "messages": {
+                    "values": [
+                        {
+                            "content": "=Write a LinkedIn post for me about the topic I chose. It is only a draft: it will be emailed to me for review, nothing is published automatically.\n\n==================================================\nTOPIC I CHOSE\n==================================================\n\n{{ $json.topic }}\n\n{{ $json.has_image ? \"I am attaching the picture that will be posted with this text. Look at it and, if it fits naturally, refer to what it actually shows (for example \\\"the screenshot below shows...\\\"). Do not describe it in detail and do not invent anything that is not visible.\" : \"\" }}\n\n==================================================\nABOUT ME\n==================================================\n\n[PERSONAL BACKGROUND REDACTED FOR PUBLIC REPO - originally a short first-person bio: field of study, technical interests, and skills. Replace this block with your own background before using.]\n\n==================================================\nHOW IT MUST SOUND: A REAL PERSON, NOT AI\n==================================================\n\nWrite in first person, the way I would explain something to a colleague over coffee. Plain words. Professional but relaxed.\n\nDo this:\nOpen with something concrete: a specific moment, a problem I hit, something that surprised me, or a small result. Not a generic statement about the industry.\nFocus on ONE idea. Do not try to cover everything about the topic.\nUse specific details (a tool name, what broke, what I tried, what I noticed) instead of abstract claims.\nVary sentence length. Some short. Some longer and more detailed.\nIt is fine to admit what I am still figuring out or what went wrong.\nWrite in short paragraphs of 1 to 3 sentences with a blank line between them. Do not put every sentence on its own line.\n\nNever do this (these make a post look AI generated):\nNever use any dash character: no \"-\", no \"\u2013\", no \"\u2014\". Use commas, periods or parentheses instead. Write \"hands on\", not hands-on.\nNever use these words: delve, leverage, harness, unlock, unleash, elevate, empower, seamless, seamlessly, robust, cutting edge, game changer, revolutionize, landscape, realm, tapestry, testament, pivotal, crucial, foster, synergy, transformative, navigate (in the figurative sense), embark, journey (for a career or learning).\nNever use these patterns: \"In today's fast paced world\", \"I'm thrilled / excited to share\", \"Let's dive in\", \"Here's the thing\", \"The future is here\", \"It's not just X, it's Y\", \"This isn't about X. It's about Y.\", \"Spoiler:\", \"Let that sink in\", \"And that's the beauty of\".\nDo not use lists of three adjectives or three parallel phrases as a rhetorical device.\nDo not open with a question or with a one word line.\nNo bullet points, numbered \"lessons\", bold text, or Markdown headings.\nNo motivational moral at the end and no engagement bait like \"Agree?\" or \"What do you think? Comment below!\".\nAt most one emoji in the whole post (zero is fine).\n\n==================================================\nLENGTH\n==================================================\n\nMedium: between 170 and 250 words, not counting hashtags. Not a short teaser, not an essay.\n\n==================================================\nENDING AND HASHTAGS\n==================================================\n\nEnd naturally, with either a genuine, specific question to other engineers or a plain closing thought.\nPut 3 or 4 relevant hashtags on the last line.\n\n==================================================\nACCURACY\n==================================================\n\nDo not invent projects, work experience, achievements, certifications, companies, metrics, results, personal stories or technologies I used.\nIf the topic does not say I built something, write about it as something I have been learning or exploring (\"I've been experimenting with...\", not \"I built a production system...\").\n\n==================================================\nFINAL CHECK BEFORE YOU ANSWER\n==================================================\n\nRe read the post. Remove every dash character and every word or pattern from the \"Never\" list. Check the length is 170 to 250 words.\n\nReturn ONLY the post text. No title, no explanation, no quotes around it, no \"Here is your post\".",
+                            "role": "user"
+                        }
+                    ]
+                },
+                "simplify": true,
+                "options": {
+                    "includeMergedResponse": true,
+                    "maxTokens": 2048
+                }
+            },
+            "credentials": {
+                "anthropicApi": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Anthropic account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "mode": "runOnceForEachItem",
+                "jsCode": "// Works for every Claude node output\nfunction getModelText(json) {\n  if (typeof json?.merged_response === 'string') return json.merged_response;\n  if (Array.isArray(json?.content)) return json.content.filter(c => c.type === 'text').map(c => c.text).join('');\n  return '';\n}\n\nlet post = getModelText($json).trim();\nif (!post) throw new Error('No LinkedIn post text was found');\n\n// Safety net: remove dash characters used as punctuation (an AI giveaway)\npost = post\n  .replace(/\\s*[\\u2014\\u2013]\\s*/g, ', ')   // em / en dash\n  .replace(/\\s+-\\s+/g, ', ')                 // spaced hyphen used as a dash\n  .replace(/,\\s*,/g, ',')\n  .replace(/^\\s*[\"']|[\"']\\s*$/g, '')\n  .trim();\n\nreturn { json: { current_post: post } };"
+            },
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                1120,
+                -128
+            ],
+            "id": "37da120c-84e2-49e4-b47e-2bfec4a98be0",
+            "name": "set current draft"
+        },
+        {
+            "id": "9294906c-2462-40d1-871c-2b464952d6f1",
+            "name": "review draft",
+            "type": "n8n-nodes-base.gmail",
+            "typeVersion": 2.2,
+            "position": [
+                1344,
+                -128
+            ],
+            "webhookId": "4bfa1e62-f54c-4cba-b31d-5e9c44dee713",
+            "parameters": {
+                "operation": "sendAndWait",
+                "sendTo": "you@example.com",
+                "subject": "LinkedIn post draft",
+                "message": "=<p><b>Your LinkedIn post draft</b></p>\n<div style=\"border:1px solid #ddd;border-radius:8px;padding:16px;white-space:pre-wrap;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;max-width:560px\">{{ $json.current_post.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') }}</div>\n<p>Click the button below and either:<br>\n\u2022 type <b>POST</b> to approve it (you will get a final preview with the picture before anything is published), or<br>\n\u2022 write what you want changed. You can also upload a new picture.</p>",
+                "responseType": "customForm",
+                "formFields": {
+                    "values": [
+                        {
+                            "fieldLabel": "reply",
+                            "fieldType": "textarea",
+                            "requiredField": true,
+                            "placeholder": "POST, or what to change"
+                        },
+                        {
+                            "fieldLabel": "new picture (optional)",
+                            "fieldType": "file",
+                            "acceptFileTypes": ".jpg, .jpeg, .png, .webp"
+                        }
+                    ]
+                },
+                "options": {
+                    "messageButtonLabel": "Reply",
+                    "responseFormTitle": "Your LinkedIn post",
+                    "responseFormDescription": "Type POST to approve, or describe the changes you want.",
+                    "appendAttribution": false
+                }
+            },
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Gmail account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 3
+                    },
+                    "conditions": [
+                        {
+                            "id": "455d7ef3-5c88-4000-a72c-bf0b7e016d20",
+                            "leftValue": "={{ /^\\s*(post|post it|publish)[\\s.!]*$/i.test($json.data?.reply || '') }}",
+                            "rightValue": "",
+                            "operator": {
+                                "type": "boolean",
+                                "operation": "true",
+                                "singleValue": true
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.3,
+            "position": [
+                1568,
+                -128
+            ],
+            "id": "bfdbeb13-ec4e-4772-b4ff-af63450ecf1b",
+            "name": "approved?"
+        },
+        {
+            "id": "c9bbfbdd-8680-46a1-893d-dcad01a896be",
+            "name": "revise draft",
+            "type": "@n8n/n8n-nodes-langchain.anthropic",
+            "typeVersion": 1,
+            "position": [
+                1792,
+                48
+            ],
+            "parameters": {
+                "resource": "text",
+                "operation": "message",
+                "modelId": {
+                    "__rl": true,
+                    "mode": "list",
+                    "value": "claude-sonnet-5-5",
+                    "cachedResultName": "claude-sonnet-5-5"
+                },
+                "messages": {
+                    "values": [
+                        {
+                            "content": "=You are revising my LinkedIn post based on my feedback.\n\n==================================================\nCURRENT POST (always edit THIS version, never an earlier one)\n==================================================\n\n{{ $('set current draft').last(0, $runIndex).json.current_post }}\n\n==================================================\nMY REQUESTED CHANGES\n==================================================\n\n{{ $json.data.reply }}\n\n==================================================\nYOUR TASK\n==================================================\n\nApply exactly the changes I asked for to the current post. Keep the parts that are already good. Keep the same topic unless I ask to change it.\nIf my request conflicts with the rules below (for example I ask for a longer post), my request wins.\n\n==================================================\nABOUT ME\n==================================================\n\n[PERSONAL BACKGROUND REDACTED FOR PUBLIC REPO - same bio block as above.]\n\n==================================================\nHOW IT MUST SOUND: A REAL PERSON, NOT AI\n==================================================\n\nWrite in first person, the way I would explain something to a colleague over coffee. Plain words. Professional but relaxed.\n\nDo this:\nOpen with something concrete: a specific moment, a problem I hit, something that surprised me, or a small result. Not a generic statement about the industry.\nFocus on ONE idea. Do not try to cover everything about the topic.\nUse specific details (a tool name, what broke, what I tried, what I noticed) instead of abstract claims.\nVary sentence length. Some short. Some longer and more detailed.\nIt is fine to admit what I am still figuring out or what went wrong.\nWrite in short paragraphs of 1 to 3 sentences with a blank line between them. Do not put every sentence on its own line.\n\nNever do this (these make a post look AI generated):\nNever use any dash character: no \"-\", no \"\u2013\", no \"\u2014\". Use commas, periods or parentheses instead. Write \"hands on\", not hands-on.\nNever use these words: delve, leverage, harness, unlock, unleash, elevate, empower, seamless, seamlessly, robust, cutting edge, game changer, revolutionize, landscape, realm, tapestry, testament, pivotal, crucial, foster, synergy, transformative, navigate (in the figurative sense), embark, journey (for a career or learning).\nNever use these patterns: \"In today's fast paced world\", \"I'm thrilled / excited to share\", \"Let's dive in\", \"Here's the thing\", \"The future is here\", \"It's not just X, it's Y\", \"This isn't about X. It's about Y.\", \"Spoiler:\", \"Let that sink in\", \"And that's the beauty of\".\nDo not use lists of three adjectives or three parallel phrases as a rhetorical device.\nDo not open with a question or with a one word line.\nNo bullet points, numbered \"lessons\", bold text, or Markdown headings.\nNo motivational moral at the end and no engagement bait like \"Agree?\" or \"What do you think? Comment below!\".\nAt most one emoji in the whole post (zero is fine).\n\n==================================================\nLENGTH\n==================================================\n\nMedium: between 170 and 250 words, not counting hashtags. Not a short teaser, not an essay.\n\n==================================================\nENDING AND HASHTAGS\n==================================================\n\nEnd naturally, with either a genuine, specific question to other engineers or a plain closing thought.\nPut 3 or 4 relevant hashtags on the last line.\n\n==================================================\nACCURACY\n==================================================\n\nDo not invent projects, work experience, achievements, certifications, companies, metrics, results, personal stories or technologies I used.\nIf the topic does not say I built something, write about it as something I have been learning or exploring (\"I've been experimenting with...\", not \"I built a production system...\").\n\n==================================================\nFINAL CHECK BEFORE YOU ANSWER\n==================================================\n\nRe read the post. Remove every dash character and every word or pattern from the \"Never\" list. Check the length is 170 to 250 words.\n\nReturn ONLY the post text. No title, no explanation, no quotes around it, no \"Here is your post\".",
+                            "role": "user"
+                        }
+                    ]
+                },
+                "simplify": true,
+                "options": {
+                    "includeMergedResponse": true,
+                    "maxTokens": 2048
+                }
+            },
+            "credentials": {
+                "anthropicApi": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Anthropic account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "mode": "runOnceForEachItem",
+                "jsCode": "const findImageKey = (b) => Object.keys(b || {}).find(k => (b[k]?.mimeType || '').startsWith('image/')) || '';\n\n// The draft that was just approved\nconst run = $prevNode.runIndex;\nconst currentPost = $('set current draft').last(0, run).json.current_post;\n\n// Newest picture wins: a picture uploaded in a review reply, otherwise the one from the topic form\nlet picture = null;\nfor (let r = run; r >= 0 && !picture; r--) {\n  let reply = null;\n  try { reply = $('review draft').last(0, r); } catch (e) { reply = null; }\n  const k = findImageKey(reply?.binary);\n  if (k) picture = reply.binary[k];\n}\nif (!picture) {\n  const original = $('prepare topic').first();\n  if (original?.binary?.image) picture = original.binary.image;\n}\n\nconst escaped = currentPost.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');\n\nreturn {\n  json: { current_post: currentPost, current_post_html: escaped, has_image: Boolean(picture), image_key: picture ? 'image' : '' },\n  binary: picture ? { image: picture } : {}\n};"
+            },
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                1792,
+                -240
+            ],
+            "id": "4e8dcc0f-c3de-4020-b181-8d7577dd5f48",
+            "name": "prep linkedin post"
+        },
+        {
+            "id": "9d94fb9a-7dac-4ca7-827a-103876153b1c",
+            "name": "final post has picture?",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.3,
+            "position": [
+                2016,
+                -240
+            ],
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 3
+                    },
+                    "conditions": [
+                        {
+                            "id": "569623db-fa74-4a0d-9cfb-12af52bcf3b9",
+                            "leftValue": "={{ $json.has_image }}",
+                            "rightValue": "",
+                            "operator": {
+                                "type": "boolean",
+                                "operation": "true",
+                                "singleValue": true
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            }
+        },
+        {
+            "id": "ede1253f-2e9f-4862-8bc0-f9924deec416",
+            "name": "send final preview (with picture)",
+            "type": "n8n-nodes-base.gmail",
+            "typeVersion": 2.2,
+            "position": [
+                2240,
+                -336
+            ],
+            "webhookId": "47de4321-cba5-46f9-b7f9-d9845570750b",
+            "parameters": {
+                "sendTo": "you@example.com",
+                "subject": "LinkedIn post: final preview",
+                "emailType": "html",
+                "message": "=<p><b>Final preview.</b> This is exactly what will be posted to LinkedIn (the picture is attached to this email).</p>\n<div style=\"border:1px solid #ddd;border-radius:8px;padding:16px;white-space:pre-wrap;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;max-width:560px\">{{ $json.current_post_html }}</div>\n<p style=\"margin-top:20px\">\n<a href=\"{{ $execution.resumeUrl + ($execution.resumeUrl.includes('?') ? '&' : '?') }}decision=publish\" style=\"display:inline-block;background:#0a66c2;color:#fff;padding:10px 18px;border-radius:6px;text-decoration:none;font-weight:bold\">Publish to LinkedIn</a>\n&nbsp;&nbsp;\n<a href=\"{{ $execution.resumeUrl + ($execution.resumeUrl.includes('?') ? '&' : '?') }}decision=cancel\" style=\"display:inline-block;background:#e0e0e0;color:#333;padding:10px 18px;border-radius:6px;text-decoration:none\">Cancel, don't post</a>\n</p>",
+                "options": {
+                    "appendAttribution": false,
+                    "attachmentsUi": {
+                        "attachmentsBinary": [
+                            {
+                                "property": "image"
+                            }
+                        ]
+                    }
+                }
+            },
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Gmail account"
+                }
+            }
+        },
+        {
+            "id": "02fa93f7-9f00-4783-bd94-922013a35195",
+            "name": "send final preview",
+            "type": "n8n-nodes-base.gmail",
+            "typeVersion": 2.2,
+            "position": [
+                2240,
+                -144
+            ],
+            "webhookId": "09b7e633-3ee0-42d2-a3ac-34ec8e014661",
+            "parameters": {
+                "sendTo": "you@example.com",
+                "subject": "LinkedIn post: final preview",
+                "emailType": "html",
+                "message": "=<p><b>Final preview.</b> This is exactly what will be posted to LinkedIn (no picture).</p>\n<div style=\"border:1px solid #ddd;border-radius:8px;padding:16px;white-space:pre-wrap;font-family:Arial,sans-serif;font-size:14px;line-height:1.5;max-width:560px\">{{ $json.current_post_html }}</div>\n<p style=\"margin-top:20px\">\n<a href=\"{{ $execution.resumeUrl + ($execution.resumeUrl.includes('?') ? '&' : '?') }}decision=publish\" style=\"display:inline-block;background:#0a66c2;color:#fff;padding:10px 18px;border-radius:6px;text-decoration:none;font-weight:bold\">Publish to LinkedIn</a>\n&nbsp;&nbsp;\n<a href=\"{{ $execution.resumeUrl + ($execution.resumeUrl.includes('?') ? '&' : '?') }}decision=cancel\" style=\"display:inline-block;background:#e0e0e0;color:#333;padding:10px 18px;border-radius:6px;text-decoration:none\">Cancel, don't post</a>\n</p>",
+                "options": {
+                    "appendAttribution": false
+                }
+            },
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Gmail account"
+                }
+            }
+        },
+        {
+            "id": "03d71c0a-9273-4fbc-a9f9-3ea8f4daf39f",
+            "name": "wait for Publish click",
+            "type": "n8n-nodes-base.wait",
+            "typeVersion": 1.1,
+            "position": [
+                2464,
+                -240
+            ],
+            "webhookId": "e8fb4710-8d9b-4c30-9667-3f3217baa303",
+            "parameters": {
+                "resume": "webhook",
+                "httpMethod": "GET",
+                "options": {}
+            }
+        },
+        {
+            "id": "8bb05f6e-6ba0-4423-bce4-e588435f2de9",
+            "name": "publish clicked?",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.3,
+            "position": [
+                2688,
+                -240
+            ],
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 3
+                    },
+                    "conditions": [
+                        {
+                            "id": "1fcbebb6-82ec-4bd6-8ee5-af186acb7ad4",
+                            "leftValue": "={{ $json.query?.decision === 'publish' }}",
+                            "rightValue": "",
+                            "operator": {
+                                "type": "boolean",
+                                "operation": "true",
+                                "singleValue": true
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            }
+        },
+        {
+            "id": "c439b1a2-467e-4ffb-b00c-f33ea7d0e66a",
+            "name": "get approved post",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                2912,
+                -336
+            ],
+            "parameters": {
+                "mode": "runOnceForAllItems",
+                "jsCode": "// Bring back the approved text + picture (the email/wait steps don't carry them)\nconst p = $('prep linkedin post').first();\nreturn [{ json: p.json, binary: p.binary || {} }];"
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 3
+                    },
+                    "conditions": [
+                        {
+                            "id": "af964f06-b40a-4735-871f-8a8387fb5b9e",
+                            "leftValue": "={{ $json.has_image }}",
+                            "rightValue": "",
+                            "operator": {
+                                "type": "boolean",
+                                "operation": "true",
+                                "singleValue": true
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.3,
+            "position": [
+                3136,
+                -336
+            ],
+            "id": "a587398f-2623-4f44-b02a-ee0a4b48d684",
+            "name": "has image?"
+        },
+        {
+            "parameters": {
+                "person": "YOUR_LINKEDIN_PERSON_URN",
+                "text": "={{ $json.current_post }}",
+                "shareMediaCategory": "IMAGE",
+                "binaryPropertyName": "image",
+                "additionalFields": {}
+            },
+            "type": "n8n-nodes-base.linkedIn",
+            "typeVersion": 1,
+            "position": [
+                3360,
+                -432
+            ],
+            "id": "cf0ebde8-0b88-417e-bf51-9ec754dd8e92",
+            "name": "post with picture",
+            "disabled": false,
+            "credentials": {
+                "linkedInOAuth2Api": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "LinkedIn account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "person": "YOUR_LINKEDIN_PERSON_URN",
+                "text": "={{ $json.current_post }}",
+                "additionalFields": {}
+            },
+            "type": "n8n-nodes-base.linkedIn",
+            "typeVersion": 1,
+            "position": [
+                3360,
+                -240
+            ],
+            "id": "b71c6dab-c5da-4bbf-8df8-4155826cb9ef",
+            "name": "post text only",
+            "disabled": false,
+            "credentials": {
+                "linkedInOAuth2Api": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "LinkedIn account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "content": "Posts to LinkedIn only after you click \"Publish to LinkedIn\" in the final preview email"
+            },
+            "type": "n8n-nodes-base.stickyNote",
+            "typeVersion": 1,
+            "position": [
+                3300,
+                -640
+            ],
+            "id": "7c987dfe-b224-46ae-8bf9-a620272b0b9f",
+            "name": "Sticky Note"
+        }
+    ]
+}

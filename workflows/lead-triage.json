@@ -1,0 +1,1549 @@
+{
+    "id": "nqeAYyjroK3X2Zdp",
+    "name": "Lead Triage",
+    "active": false,
+    "isArchived": false,
+    "versionId": "3863d3e3-1248-484b-a747-ce0a1b8419d8",
+    "activeVersionId": null,
+    "triggerCount": 0,
+    "nodeCount": 26,
+    "createdAt": "2026-10-10T21:00:28.007Z",
+    "updatedAt": "2026-10-11T01:45:46.617Z",
+    "settings": {
+        "executionOrder": "v1",
+        "availableInMCP": true,
+        "binaryMode": "separate"
+    },
+    "tags": [],
+    "parentFolderId": null,
+    "description": "Scores inbound form enquiries with Claude, researches the company with Tavily, logs every lead to the Leads data table, and emails hot leads with a drafted reply.",
+    "connections": {
+        "Contact form": {
+            "main": [
+                [
+                    {
+                        "node": "Normalize enquiry",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Normalize enquiry": {
+            "main": [
+                [
+                    {
+                        "node": "Score the lead",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Score the lead": {
+            "main": [
+                [
+                    {
+                        "node": "Build lead record",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Claude Sonnet": {
+            "ai_languageModel": [
+                [
+                    {
+                        "node": "Score the lead",
+                        "type": "ai_languageModel",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Look up the company": {
+            "ai_tool": [
+                [
+                    {
+                        "node": "Score the lead",
+                        "type": "ai_tool",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Score format": {
+            "ai_outputParser": [
+                [
+                    {
+                        "node": "Score the lead",
+                        "type": "ai_outputParser",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Build lead record": {
+            "main": [
+                [
+                    {
+                        "node": "Save to Leads table",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Route by tier": {
+            "main": [
+                [
+                    {
+                        "node": "Add to Hot tab",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Ask for your call",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Add to Warm tab",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Add to Reject tab",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Ask for your call",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Approve the reply": {
+            "main": [
+                [
+                    {
+                        "node": "Approved?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Approved?": {
+            "main": [
+                [
+                    {
+                        "node": "Send reply to lead",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Not sent",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Ask for your call": {
+            "main": [
+                [
+                    {
+                        "node": "Your decision",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Your decision": {
+            "main": [
+                [
+                    {
+                        "node": "Add to Hot tab",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Add to Reject tab",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Add to Warm tab",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Save to Leads table": {
+            "main": [
+                [
+                    {
+                        "node": "Route by tier",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Add to Hot tab": {
+            "main": [
+                [
+                    {
+                        "node": "Has a drafted reply?",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Has a drafted reply?": {
+            "main": [
+                [
+                    {
+                        "node": "Approve the reply",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "No reply needed",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "nodes": [
+        {
+            "parameters": {
+                "formTitle": "Contact Northgate Design",
+                "formDescription": "Tell us what you need and we will come back to you.",
+                "formFields": {
+                    "values": [
+                        {
+                            "fieldLabel": "Your name",
+                            "requiredField": true
+                        },
+                        {
+                            "fieldLabel": "Work email",
+                            "fieldType": "email",
+                            "requiredField": true
+                        },
+                        {
+                            "fieldLabel": "Company"
+                        },
+                        {
+                            "fieldLabel": "What do you need?",
+                            "fieldType": "textarea",
+                            "requiredField": true
+                        }
+                    ]
+                },
+                "options": {
+                    "appendAttribution": false,
+                    "buttonLabel": "Send enquiry",
+                    "path": "lead-triage"
+                }
+            },
+            "id": "c016e50a-7128-4a54-878a-70a89211be26",
+            "name": "Contact form",
+            "type": "n8n-nodes-base.formTrigger",
+            "typeVersion": 2.6,
+            "position": [
+                -656,
+                304
+            ],
+            "webhookId": "1f5187ab-1d9c-4eea-8130-5d06a77f9dc6"
+        },
+        {
+            "parameters": {
+                "assignments": {
+                    "assignments": [
+                        {
+                            "id": "lead-name",
+                            "name": "lead_name",
+                            "value": "={{ $json['Your name'] ?? '' }}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "lead-email",
+                            "name": "lead_email",
+                            "value": "={{ $json['Work email'] ?? '' }}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "company",
+                            "name": "company",
+                            "value": "={{ $json['Company'] ?? '' }}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "message",
+                            "name": "message",
+                            "value": "={{ $json['What do you need?'] ?? '' }}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "is-freemail",
+                            "name": "is_freemail",
+                            "value": "={{ ['gmail.com','yahoo.com','hotmail.com','outlook.com','icloud.com','aol.com'].includes((($json['Work email'] ?? '').split('@')[1] ?? '').toLowerCase()) }}",
+                            "type": "boolean"
+                        },
+                        {
+                            "id": "received-at",
+                            "name": "received_at",
+                            "value": "={{ $now.toISO() }}",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "64018ee7-9b77-4c4d-b3fe-8f30c6a8b3c2",
+            "name": "Normalize enquiry",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 3.5,
+            "position": [
+                -448,
+                304
+            ]
+        },
+        {
+            "parameters": {
+                "promptType": "define",
+                "text": "=Triage this enquiry.\n\nName: {{ $json.lead_name }}\nEmail: {{ $json.lead_email }} (free email provider: {{ $json.is_freemail }})\nCompany: {{ $json.company }}\nMessage: {{ $json.message }}",
+                "hasOutputParser": true,
+                "options": {
+                    "systemMessage": "You triage inbound enquiries for Northgate Design, a 6-person web design and ai implementations studio. Your job is to decide how much of the owner time each enquiry deserves.\n\nOUR IDEAL CLIENT\n- A business with 10 or more staff, in retail or professional services\n- Budget of 5000 USD or more\n- Named a specific service, a budget, or a deadline\n\nNOT OUR CLIENT\n- Students, job seekers, agencies pitching us, requests for free or spec work\n- A vague message from a free email address with no company named\n\nHOW TO WORK\n1. If the enquiry names a company, call the \"Look up the company\" tool once to find out what they do and roughly how big they are. If it names no company, skip the tool.\n2. Score the enquiry 0-100 on fit with the ideal client above.\n3. Be strict. A polite message with no company and no budget is not a good lead, it is just polite. If the lookup found nothing, say so in research_summary and score on the message alone rather than assuming the best.\n4. Tiers: 80-100 is hot, 40-79 is warm, 0-39 is reject.\n5. reasoning must be one sentence naming the single deciding factor.\n6. suggested_reply: for any lead scoring 35 or above, write 3-4 sentences the owner can send as they are, referring to something specific from the message or the lookup. For a hot lead, propose a short call. For a lead below 80, be friendly and ask the one or two questions that would show whether it is a fit, such as budget, team size or timeline. For a lead below 35, leave it as an empty string.",
+                    "maxIterations": 5
+                }
+            },
+            "id": "d99cc086-640a-4198-881a-d8acb3da0adf",
+            "name": "Score the lead",
+            "type": "@n8n/n8n-nodes-langchain.agent",
+            "typeVersion": 3.1,
+            "position": [
+                -176,
+                304
+            ],
+            "onError": "continueRegularOutput"
+        },
+        {
+            "parameters": {
+                "model": {
+                    "__rl": true,
+                    "mode": "list",
+                    "value": "claude-sonnet-5",
+                    "cachedResultName": "Claude Sonnet 5"
+                },
+                "options": {
+                    "maxTokensToSample": 2000
+                }
+            },
+            "id": "7713083e-96b7-4bc8-9158-fd53f402cbb4",
+            "name": "Claude Sonnet",
+            "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+            "typeVersion": 1.6,
+            "position": [
+                -176,
+                528
+            ],
+            "credentials": {
+                "anthropicApi": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Anthropic account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "descriptionType": "manual",
+                "toolDescription": "Search the web to find out what a company does, roughly how big it is, and where it operates. Pass the company name, plus its website domain if you have one.",
+                "query": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('query', 'The company name to look up, for example \"Northwind Supplies Leeds\"') }}",
+                "options": {
+                    "search_depth": "basic",
+                    "max_results": 3,
+                    "time_range": "year",
+                    "include_answer": "basic"
+                }
+            },
+            "id": "10f2afac-928e-46a5-ad2d-71c553a3bc08",
+            "name": "Look up the company",
+            "type": "@tavily/n8n-nodes-tavily.tavilyTool",
+            "typeVersion": 1,
+            "position": [
+                -16,
+                528
+            ],
+            "credentials": {
+                "tavilyApi": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Tavily account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "jsonSchemaExample": "{ \"score\": 87, \"tier\": \"hot\", \"company\": \"Northwind Supplies\", \"service_wanted\": \"responsive website redesign\", \"reasoning\": \"A 60-person distributor with an 18k budget and a March deadline.\", \"suggested_reply\": \"Hi Priya, thanks for getting in touch.\", \"research_summary\": \"Northwind Supplies, industrial distributor in Leeds, around 60 staff.\" }"
+            },
+            "id": "9a9b048c-6a1e-4336-999a-8c11ed5841ab",
+            "name": "Score format",
+            "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+            "typeVersion": 1.3,
+            "position": [
+                144,
+                528
+            ]
+        },
+        {
+            "parameters": {
+                "assignments": {
+                    "assignments": [
+                        {
+                            "id": "received-at",
+                            "name": "received_at",
+                            "value": "={{ $('Normalize enquiry').item.json.received_at }}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "lead-name",
+                            "name": "lead_name",
+                            "value": "={{ $('Normalize enquiry').item.json.lead_name }}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "lead-email",
+                            "name": "lead_email",
+                            "value": "={{ $('Normalize enquiry').item.json.lead_email }}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "company",
+                            "name": "company",
+                            "value": "={{ $json.output?.company || $json.company || $('Normalize enquiry').item.json.company }}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "service-wanted",
+                            "name": "service_wanted",
+                            "value": "={{ $json.output?.service_wanted || $json.service_wanted || '' }}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "score",
+                            "name": "score",
+                            "value": "={{ $json.output?.score ?? $json.score ?? 50 }}",
+                            "type": "number"
+                        },
+                        {
+                            "id": "tier",
+                            "name": "tier",
+                            "value": "={{ $json.output?.tier || $json.tier || 'manual_review' }}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "reasoning",
+                            "name": "reasoning",
+                            "value": "={{ $json.output?.reasoning || $json.reasoning || 'Scoring did not return a result, so this one needs a human.' }}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "suggested-reply",
+                            "name": "suggested_reply",
+                            "value": "={{ $json.output?.suggested_reply || $json.suggested_reply || '' }}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "message",
+                            "name": "message",
+                            "value": "={{ $('Normalize enquiry').item.json.message }}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "research",
+                            "name": "research",
+                            "value": "={{ $json.output?.research_summary || $json.research_summary || 'none' }}",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "62b679e6-fe03-454c-899c-ee65e4acb4cf",
+            "name": "Build lead record",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 3.5,
+            "position": [
+                128,
+                304
+            ]
+        },
+        {
+            "parameters": {
+                "rules": {
+                    "values": [
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "loose",
+                                    "version": 3
+                                },
+                                "conditions": [
+                                    {
+                                        "leftValue": "={{ $('Build lead record').item.json.tier }}",
+                                        "operator": {
+                                            "operation": "equals",
+                                            "type": "string"
+                                        },
+                                        "rightValue": "hot",
+                                        "id": "a1a82a60-d9d2-4bd5-bdde-f31dddf46d8d"
+                                    }
+                                ],
+                                "combinator": "and"
+                            },
+                            "renameOutput": true,
+                            "outputKey": "hot"
+                        },
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "loose",
+                                    "version": 3
+                                },
+                                "conditions": [
+                                    {
+                                        "leftValue": "={{ $('Build lead record').item.json.score }}",
+                                        "operator": {
+                                            "operation": "gte",
+                                            "type": "number"
+                                        },
+                                        "rightValue": 35,
+                                        "id": "00dcc582-f118-465d-80f6-d30470e4707c"
+                                    },
+                                    {
+                                        "leftValue": "={{ $('Build lead record').item.json.score }}",
+                                        "operator": {
+                                            "operation": "lte",
+                                            "type": "number"
+                                        },
+                                        "rightValue": 55,
+                                        "id": "fc2ce616-bfec-4b9e-b32f-5cf7dd0eaef6"
+                                    }
+                                ],
+                                "combinator": "and"
+                            },
+                            "renameOutput": true,
+                            "outputKey": "borderline"
+                        },
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "loose",
+                                    "version": 3
+                                },
+                                "conditions": [
+                                    {
+                                        "leftValue": "={{ $('Build lead record').item.json.tier }}",
+                                        "operator": {
+                                            "operation": "equals",
+                                            "type": "string"
+                                        },
+                                        "rightValue": "warm",
+                                        "id": "823edf3f-d4ff-45c0-bd4d-c9952387390e"
+                                    }
+                                ],
+                                "combinator": "and"
+                            },
+                            "renameOutput": true,
+                            "outputKey": "warm"
+                        },
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "loose",
+                                    "version": 3
+                                },
+                                "conditions": [
+                                    {
+                                        "leftValue": "={{ $('Build lead record').item.json.tier }}",
+                                        "operator": {
+                                            "operation": "equals",
+                                            "type": "string"
+                                        },
+                                        "rightValue": "reject",
+                                        "id": "10c90a1e-bb71-4f4b-8a9d-0332285edd68"
+                                    }
+                                ],
+                                "combinator": "and"
+                            },
+                            "renameOutput": true,
+                            "outputKey": "reject"
+                        }
+                    ]
+                },
+                "looseTypeValidation": true,
+                "options": {
+                    "fallbackOutput": "extra",
+                    "renameFallbackOutput": "Scoring failed"
+                }
+            },
+            "id": "e7e2451b-1941-4801-a20b-3b999e09c309",
+            "name": "Route by tier",
+            "type": "n8n-nodes-base.switch",
+            "typeVersion": 3.4,
+            "position": [
+                528,
+                288
+            ]
+        },
+        {
+            "parameters": {
+                "dataTableId": {
+                    "__rl": true,
+                    "mode": "list",
+                    "value": "BdZOBv3Y6hHZ4h24",
+                    "cachedResultName": "Leads"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "received_at": "={{ $json.received_at }}",
+                        "lead_name": "={{ $json.lead_name }}",
+                        "lead_email": "={{ $json.lead_email }}",
+                        "company": "={{ $json.company }}",
+                        "service_wanted": "={{ $json.service_wanted }}",
+                        "score": "={{ $json.score }}",
+                        "tier": "={{ $json.tier }}",
+                        "reasoning": "={{ $json.reasoning }}",
+                        "suggested_reply": "={{ $json.suggested_reply }}",
+                        "message": "={{ $json.message }}",
+                        "research": "={{ $json.research }}"
+                    },
+                    "matchingColumns": [],
+                    "schema": [
+                        {
+                            "id": "received_at",
+                            "displayName": "received_at",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "readOnly": false,
+                            "removed": false
+                        },
+                        {
+                            "id": "lead_name",
+                            "displayName": "lead_name",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "readOnly": false,
+                            "removed": false
+                        },
+                        {
+                            "id": "lead_email",
+                            "displayName": "lead_email",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "readOnly": false,
+                            "removed": false
+                        },
+                        {
+                            "id": "company",
+                            "displayName": "company",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "readOnly": false,
+                            "removed": false
+                        },
+                        {
+                            "id": "service_wanted",
+                            "displayName": "service_wanted",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "readOnly": false,
+                            "removed": false
+                        },
+                        {
+                            "id": "score",
+                            "displayName": "score",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "number",
+                            "readOnly": false,
+                            "removed": false
+                        },
+                        {
+                            "id": "tier",
+                            "displayName": "tier",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "readOnly": false,
+                            "removed": false
+                        },
+                        {
+                            "id": "reasoning",
+                            "displayName": "reasoning",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "readOnly": false,
+                            "removed": false
+                        },
+                        {
+                            "id": "suggested_reply",
+                            "displayName": "suggested_reply",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "readOnly": false,
+                            "removed": false
+                        },
+                        {
+                            "id": "message",
+                            "displayName": "message",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "readOnly": false,
+                            "removed": false
+                        },
+                        {
+                            "id": "research",
+                            "displayName": "research",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "readOnly": false,
+                            "removed": false
+                        }
+                    ],
+                    "attemptToConvertTypes": false,
+                    "convertFieldsToString": false
+                },
+                "options": {}
+            },
+            "id": "2428fc14-b07e-48fa-98e7-3533c201fe0a",
+            "name": "Save to Leads table",
+            "type": "n8n-nodes-base.dataTable",
+            "typeVersion": 1.1,
+            "position": [
+                352,
+                320
+            ],
+            "onError": "continueRegularOutput"
+        },
+        {
+            "parameters": {
+                "operation": "append",
+                "documentId": {
+                    "__rl": true,
+                    "mode": "id",
+                    "value": "YOUR_GOOGLE_SHEET_ID"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "mode": "name",
+                    "value": "Hot"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "matchingColumns": [],
+                    "schema": [
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Received (UTC)",
+                            "id": "Received (UTC)",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Name",
+                            "id": "Name",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Email",
+                            "id": "Email",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Company",
+                            "id": "Company",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Score",
+                            "id": "Score",
+                            "required": false,
+                            "type": "number"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "What they want",
+                            "id": "What they want",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Reasoning",
+                            "id": "Reasoning",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Suggested reply",
+                            "id": "Suggested reply",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Their message",
+                            "id": "Their message",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Research",
+                            "id": "Research",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "value": {
+                        "Company": "={{ $('Build lead record').item.json.company }}",
+                        "Email": "={{ $('Build lead record').item.json.lead_email }}",
+                        "Name": "={{ $('Build lead record').item.json.lead_name }}",
+                        "Reasoning": "={{ $('Build lead record').item.json.reasoning }}",
+                        "Received (UTC)": "={{ DateTime.fromISO($('Build lead record').item.json.received_at).toUTC().toFormat('yyyy-MM-dd HH:mm') }}",
+                        "Research": "={{ $('Build lead record').item.json.research }}",
+                        "Score": "={{ $('Build lead record').item.json.score }}",
+                        "Suggested reply": "={{ $('Build lead record').item.json.suggested_reply }}",
+                        "Their message": "={{ $('Build lead record').item.json.message }}",
+                        "What they want": "={{ $('Build lead record').item.json.service_wanted }}"
+                    }
+                },
+                "options": {
+                    "cellFormat": "RAW"
+                }
+            },
+            "id": "5d04394a-9270-43e8-977c-47570d67ec59",
+            "name": "Add to Hot tab",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.7,
+            "position": [
+                1360,
+                -192
+            ],
+            "onError": "continueRegularOutput",
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Google Sheets account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "operation": "append",
+                "documentId": {
+                    "__rl": true,
+                    "mode": "id",
+                    "value": "YOUR_GOOGLE_SHEET_ID"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "mode": "name",
+                    "value": "Warm"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "matchingColumns": [],
+                    "schema": [
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Received (UTC)",
+                            "id": "Received (UTC)",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Name",
+                            "id": "Name",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Email",
+                            "id": "Email",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Company",
+                            "id": "Company",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Score",
+                            "id": "Score",
+                            "required": false,
+                            "type": "number"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "What they want",
+                            "id": "What they want",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Reasoning",
+                            "id": "Reasoning",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Their message",
+                            "id": "Their message",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Research",
+                            "id": "Research",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "value": {
+                        "Company": "={{ $('Build lead record').item.json.company }}",
+                        "Email": "={{ $('Build lead record').item.json.lead_email }}",
+                        "Name": "={{ $('Build lead record').item.json.lead_name }}",
+                        "Reasoning": "={{ $('Build lead record').item.json.reasoning }}",
+                        "Received (UTC)": "={{ DateTime.fromISO($('Build lead record').item.json.received_at).toUTC().toFormat('yyyy-MM-dd HH:mm') }}",
+                        "Research": "={{ $('Build lead record').item.json.research }}",
+                        "Score": "={{ $('Build lead record').item.json.score }}",
+                        "Their message": "={{ $('Build lead record').item.json.message }}",
+                        "What they want": "={{ $('Build lead record').item.json.service_wanted }}"
+                    }
+                },
+                "options": {
+                    "cellFormat": "RAW"
+                }
+            },
+            "id": "b91df34f-0dd3-44d2-8191-cd8d5b8bc30a",
+            "name": "Add to Warm tab",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.7,
+            "position": [
+                1232,
+                480
+            ],
+            "onError": "continueRegularOutput",
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Google Sheets account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "operation": "append",
+                "documentId": {
+                    "__rl": true,
+                    "mode": "id",
+                    "value": "YOUR_GOOGLE_SHEET_ID"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "mode": "name",
+                    "value": "Reject"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "matchingColumns": [],
+                    "schema": [
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Received (UTC)",
+                            "id": "Received (UTC)",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Name",
+                            "id": "Name",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Email",
+                            "id": "Email",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Company",
+                            "id": "Company",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Score",
+                            "id": "Score",
+                            "required": false,
+                            "type": "number"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "What they want",
+                            "id": "What they want",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Reasoning",
+                            "id": "Reasoning",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Their message",
+                            "id": "Their message",
+                            "required": false,
+                            "type": "string"
+                        },
+                        {
+                            "canBeUsedToMatch": true,
+                            "defaultMatch": false,
+                            "display": true,
+                            "displayName": "Research",
+                            "id": "Research",
+                            "required": false,
+                            "type": "string"
+                        }
+                    ],
+                    "value": {
+                        "Company": "={{ $('Build lead record').item.json.company }}",
+                        "Email": "={{ $('Build lead record').item.json.lead_email }}",
+                        "Name": "={{ $('Build lead record').item.json.lead_name }}",
+                        "Reasoning": "={{ $('Build lead record').item.json.reasoning }}",
+                        "Received (UTC)": "={{ DateTime.fromISO($('Build lead record').item.json.received_at).toUTC().toFormat('yyyy-MM-dd HH:mm') }}",
+                        "Research": "={{ $('Build lead record').item.json.research }}",
+                        "Score": "={{ $('Build lead record').item.json.score }}",
+                        "Their message": "={{ $('Build lead record').item.json.message }}",
+                        "What they want": "={{ $('Build lead record').item.json.service_wanted }}"
+                    }
+                },
+                "options": {
+                    "cellFormat": "RAW"
+                }
+            },
+            "id": "3cb23cbf-a91a-4caa-8b8a-591091964785",
+            "name": "Add to Reject tab",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.7,
+            "position": [
+                1232,
+                656
+            ],
+            "onError": "continueRegularOutput",
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Google Sheets account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "operation": "sendAndWait",
+                "sendTo": "you@example.com",
+                "subject": "=Approve reply to {{ $('Build lead record').item.json.company || $('Build lead record').item.json.lead_name }} ({{ $('Build lead record').item.json.score }}/100)?",
+                "message": "={{ $('Build lead record').item.json.lead_name }} at {{ $('Build lead record').item.json.company || 'no company given' }} scored {{ $('Build lead record').item.json.score }}/100.\nWhy: {{ $('Build lead record').item.json.reasoning }}\n\nTHEY SAID\n{{ $('Build lead record').item.json.message }}\n\nWHAT WE FOUND ONLINE\n{{ $('Build lead record').item.json.research }}\n\nTHE REPLY CLAUDE DRAFTED\n{{ $('Build lead record').item.json.suggested_reply }}\n\n\"Send this reply\" emails it to {{ $('Build lead record').item.json.lead_email }} from your Gmail.\n\"Don't send\" sends nothing, so you can write your own.",
+                "approvalOptions": {
+                    "values": {
+                        "approvalType": "double",
+                        "approveLabel": "Send this reply",
+                        "disapproveLabel": "Don't send"
+                    }
+                },
+                "options": {
+                    "limitWaitTime": {
+                        "values": {
+                            "resumeAmount": 2,
+                            "resumeUnit": "days"
+                        }
+                    },
+                    "appendAttribution": false
+                }
+            },
+            "id": "806974a5-b9b3-496b-a5aa-1f9405395755",
+            "name": "Approve the reply",
+            "type": "n8n-nodes-base.gmail",
+            "typeVersion": 2.2,
+            "position": [
+                1808,
+                -192
+            ],
+            "webhookId": "4075d481-926b-4527-8432-298670b90d0d",
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Gmail account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "combinator": "and",
+                    "conditions": [
+                        {
+                            "leftValue": "={{ String($json.data?.approved) }}",
+                            "operator": {
+                                "operation": "equals",
+                                "type": "string"
+                            },
+                            "rightValue": "true"
+                        }
+                    ],
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "loose",
+                        "version": 2
+                    }
+                },
+                "looseTypeValidation": true,
+                "options": {}
+            },
+            "id": "d39bb35a-5e28-4684-865c-547793b556d0",
+            "name": "Approved?",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.2,
+            "position": [
+                2032,
+                -192
+            ]
+        },
+        {
+            "parameters": {
+                "sendTo": "={{ $('Build lead record').item.json.lead_email }}",
+                "subject": "Your enquiry to Northgate Design",
+                "emailType": "text",
+                "message": "={{ $('Build lead record').item.json.suggested_reply }}",
+                "options": {
+                    "appendAttribution": false
+                }
+            },
+            "id": "29bcbb5b-049c-4a85-84a9-6944adafe642",
+            "name": "Send reply to lead",
+            "type": "n8n-nodes-base.gmail",
+            "typeVersion": 2.2,
+            "position": [
+                2256,
+                -272
+            ],
+            "webhookId": "14643978-7a31-402b-871a-0b09d516bb02",
+            "onError": "continueRegularOutput",
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Gmail account"
+                }
+            }
+        },
+        {
+            "parameters": {},
+            "id": "35a4e983-f48b-4445-a3fb-1ef24adaa338",
+            "name": "Not sent",
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+            "position": [
+                2256,
+                -112
+            ]
+        },
+        {
+            "parameters": {
+                "operation": "sendAndWait",
+                "sendTo": "you@example.com",
+                "subject": "=Needs your call: {{ $('Build lead record').item.json.company || $('Build lead record').item.json.lead_name }} ({{ $('Build lead record').item.json.tier === 'manual_review' ? 'not scored' : $('Build lead record').item.json.score + '/100' }})",
+                "message": "={{ $('Build lead record').item.json.tier === 'manual_review' ? 'Scoring failed, so nobody has judged this lead yet.' : 'This scored ' + $('Build lead record').item.json.score + '/100, which is borderline, so Claude is not sure.' }}\n\n{{ $('Build lead record').item.json.lead_name }} at {{ $('Build lead record').item.json.company || 'no company given' }} ({{ $('Build lead record').item.json.lead_email }})\nClaude's view: {{ $('Build lead record').item.json.reasoning }}\n\nTHEY SAID\n{{ $('Build lead record').item.json.message }}\n\nWHAT WE FOUND ONLINE\n{{ $('Build lead record').item.json.research }}\n\nRECOMMENDED REPLY\n{{ $('Build lead record').item.json.suggested_reply || '(no draft, because scoring failed)' }}\n\n\"Worth pursuing\" files it in the Hot tab, then sends you a second email to approve this reply before it goes to the customer.\n\"Not for us\" files it in Reject and nothing is sent.\nNo answer within 2 days and it goes to the Warm tab.",
+                "approvalOptions": {
+                    "values": {
+                        "approvalType": "double",
+                        "approveLabel": "Worth pursuing",
+                        "disapproveLabel": "Not for us"
+                    }
+                },
+                "options": {
+                    "limitWaitTime": {
+                        "values": {
+                            "resumeAmount": 2,
+                            "resumeUnit": "days"
+                        }
+                    },
+                    "appendAttribution": false
+                }
+            },
+            "id": "8a89fb1d-667c-428b-ad65-862f8a37f597",
+            "name": "Ask for your call",
+            "type": "n8n-nodes-base.gmail",
+            "typeVersion": 2.2,
+            "position": [
+                816,
+                416
+            ],
+            "webhookId": "05746ac2-67cd-423f-b6f7-89ae999be8cb",
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Gmail account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "rules": {
+                    "values": [
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "loose",
+                                    "version": 3
+                                },
+                                "conditions": [
+                                    {
+                                        "leftValue": "={{ String($json.data?.approved) }}",
+                                        "operator": {
+                                            "operation": "equals",
+                                            "type": "string"
+                                        },
+                                        "rightValue": "true",
+                                        "id": "d21b8e2f-7c79-46b6-af4d-88ce34abe813"
+                                    }
+                                ],
+                                "combinator": "and"
+                            },
+                            "renameOutput": true,
+                            "outputKey": "worth pursuing"
+                        },
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "loose",
+                                    "version": 3
+                                },
+                                "conditions": [
+                                    {
+                                        "leftValue": "={{ String($json.data?.approved) }}",
+                                        "operator": {
+                                            "operation": "equals",
+                                            "type": "string"
+                                        },
+                                        "rightValue": "false",
+                                        "id": "138b3897-9413-45a8-8fc9-ae32cd484193"
+                                    }
+                                ],
+                                "combinator": "and"
+                            },
+                            "renameOutput": true,
+                            "outputKey": "not for us"
+                        }
+                    ]
+                },
+                "looseTypeValidation": true,
+                "options": {
+                    "fallbackOutput": "extra",
+                    "renameFallbackOutput": "no answer"
+                }
+            },
+            "id": "ff55559a-b79e-4266-b464-dd0d0edaf0ad",
+            "name": "Your decision",
+            "type": "n8n-nodes-base.switch",
+            "typeVersion": 3.4,
+            "position": [
+                1040,
+                400
+            ]
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "loose",
+                        "version": 2
+                    },
+                    "conditions": [
+                        {
+                            "leftValue": "={{ $('Build lead record').item.json.suggested_reply }}",
+                            "operator": {
+                                "operation": "notEmpty",
+                                "singleValue": true,
+                                "type": "string"
+                            },
+                            "rightValue": "",
+                            "id": "2491eef4-64d1-458c-a68c-6e8846e1bcb1"
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "looseTypeValidation": true,
+                "options": {}
+            },
+            "id": "773ca064-c1ad-4714-b5fd-605ce953a65a",
+            "name": "Has a drafted reply?",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.2,
+            "position": [
+                1584,
+                -192
+            ]
+        },
+        {
+            "parameters": {},
+            "id": "947adae3-159a-4f39-a839-84cac8b7d5e4",
+            "name": "No reply needed",
+            "type": "n8n-nodes-base.noOp",
+            "typeVersion": 1,
+            "position": [
+                1808,
+                -16
+            ]
+        },
+        {
+            "parameters": {
+                "content": "## 1. Intake\n\nA visitor fills in the contact form: name, work email, company and what they need.\n\n**Normalize enquiry** tidies the answers into clean fields and flags free email addresses like Gmail, which count as a weaker business lead.",
+                "height": 220,
+                "width": 380,
+                "color": 7
+            },
+            "id": "b51aef5d-650a-4705-8824-56563cd6e22b",
+            "name": "Step 1 - Intake",
+            "type": "n8n-nodes-base.stickyNote",
+            "typeVersion": 1,
+            "position": [
+                -704,
+                32
+            ]
+        },
+        {
+            "parameters": {
+                "content": "## 2. Scoring\n\nClaude reads the enquiry. If a company is named, it looks it up on the web with Tavily.\n\nIt scores the lead 0-100 against the ideal-client rules and drafts a reply for anything scoring 35+.\n\n**To make it about your business,** edit the System Message in *Score the lead*.",
+                "height": 240,
+                "width": 420,
+                "color": 6
+            },
+            "id": "6a9bef68-4ab0-4f5c-a6a4-424733fe50da",
+            "name": "Step 2 - Scoring",
+            "type": "n8n-nodes-base.stickyNote",
+            "typeVersion": 1,
+            "position": [
+                -224,
+                -64
+            ]
+        },
+        {
+            "parameters": {
+                "content": "## 3. Log and route\n\nEvery lead is saved to the **Leads** data table first, so nothing is lost while a decision is pending.\n\n**Route by tier** then sends it one way:\n- hot: 80+\n- borderline: 35-55, goes to you\n- warm: 56-79\n- reject: under 35\n- scoring failed: goes to you",
+                "height": 300,
+                "width": 380,
+                "color": 5
+            },
+            "id": "3fc59762-b425-41a1-8eb8-889884638c49",
+            "name": "Step 3 - Log and route",
+            "type": "n8n-nodes-base.stickyNote",
+            "typeVersion": 1,
+            "position": [
+                304,
+                544
+            ]
+        },
+        {
+            "parameters": {
+                "content": "## 4. Hot lead\n\nSaved to the Hot tab, then you get an email with Claude's drafted reply and two buttons.\n\n**Send this reply** emails it to the customer from your Gmail. **Don't send** sends nothing. No click within 2 days: nothing is sent.\n\nLeads you mark *Worth pursuing* come through here too, with their own draft. No AI-written email reaches a customer without your click.",
+                "height": 250,
+                "width": 520,
+                "color": 3
+            },
+            "id": "f5e4ec5a-187b-400d-8b6f-4ab1643be0d7",
+            "name": "Step 4 - Hot lead",
+            "type": "n8n-nodes-base.stickyNote",
+            "typeVersion": 1,
+            "position": [
+                1312,
+                -656
+            ]
+        },
+        {
+            "parameters": {
+                "content": "## 5. Human review\n\nBorderline or unscored leads email you with Claude's recommended reply and **Worth pursuing** / **Not for us** buttons.\n\n*Worth pursuing* files it in Hot and sends you the approve-and-send email. *Not for us* files it in Reject. No answer within 2 days files it in Warm.\n\nA failure never lands in Reject on its own.",
+                "height": 260,
+                "width": 400,
+                "color": 4
+            },
+            "id": "568e4ab0-898a-46aa-9388-9c5832232ea4",
+            "name": "Step 5 - Human review",
+            "type": "n8n-nodes-base.stickyNote",
+            "typeVersion": 1,
+            "position": [
+                784,
+                640
+            ]
+        },
+        {
+            "parameters": {
+                "content": "## 6. Sheet tabs\n\nEvery lead ends up in one tab of the **Lead Triage Leads** Google Sheet: Hot, Warm or Reject.\n\nText is written as plain text, so nothing typed into the form can run as a formula in your sheet.",
+                "height": 230,
+                "width": 360,
+                "color": 2
+            },
+            "id": "a0109c33-30e5-4630-af68-081c27c316a7",
+            "name": "Step 6 - Sheet tabs",
+            "type": "n8n-nodes-base.stickyNote",
+            "typeVersion": 1,
+            "position": [
+                1456,
+                480
+            ]
+        }
+    ]
+}

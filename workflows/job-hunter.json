@@ -1,0 +1,1161 @@
+{
+    "id": "ALVtiFu63o4sEhMP",
+    "name": "job hunter",
+    "active": true,
+    "isArchived": false,
+    "versionId": "3ab4bb75-e77f-42a7-9a1c-77cb6d2afdaf",
+    "activeVersionId": "3ab4bb75-e77f-42a7-9a1c-77cb6d2afdaf",
+    "triggerCount": 1,
+    "nodeCount": 21,
+    "createdAt": "2026-09-14T19:09:19.424Z",
+    "updatedAt": "2026-10-10T20:48:02.583Z",
+    "settings": {
+        "executionOrder": "v1",
+        "binaryMode": "separate",
+        "timezone": "Etc/GMT-2",
+        "availableInMCP": true
+    },
+    "tags": [],
+    "parentFolderId": null,
+    "connections": {
+        "Gmail Trigger": {
+            "main": [
+                [
+                    {
+                        "node": "Start from Mon Oct 5",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Get a message": {
+            "main": [
+                [
+                    {
+                        "node": "if its a job searching mails",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "if its a job searching mails": {
+            "main": [
+                [
+                    {
+                        "node": "extracting jobs",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "filter Jobs": {
+            "main": [
+                [
+                    {
+                        "node": "Search",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "verifying from query": {
+            "main": [
+                [
+                    {
+                        "node": "IF FOUND URL",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "IF FOUND URL": {
+            "main": [
+                [
+                    {
+                        "node": "Extract",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "prepare for job rating",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "prepare for job rating": {
+            "main": [
+                [
+                    {
+                        "node": "rating jobs",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "rating jobs": {
+            "main": [
+                [
+                    {
+                        "node": "cleaner ratings",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "cleaner ratings": {
+            "main": [
+                [
+                    {
+                        "node": "Mark a message as read",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Mark a message as read": {
+            "main": [
+                [
+                    {
+                        "node": "Score above 65",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Send message and wait for response": {
+            "main": [
+                [
+                    {
+                        "node": "if applied",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "if applied": {
+            "main": [
+                [
+                    {
+                        "node": "change to applied",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Append to False",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "change to applied": {
+            "main": [
+                []
+            ]
+        },
+        "Search": {
+            "main": [
+                [
+                    {
+                        "node": "verifying from query",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Extract": {
+            "main": [
+                [
+                    {
+                        "node": "prepare for job rating",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Score above 65": {
+            "main": [
+                [
+                    {
+                        "node": "Send message and wait for response",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "append rows in sheets to add the new jobs",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Append or update row in sheet",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "extracting jobs": {
+            "main": [
+                [
+                    {
+                        "node": "filter Jobs",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Start from Mon Oct 5": {
+            "main": [
+                [
+                    {
+                        "node": "Get a message",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                []
+            ]
+        }
+    },
+    "nodes": [
+        {
+            "parameters": {
+                "pollTimes": {
+                    "item": [
+                        {
+                            "mode": "custom",
+                            "cronExpression": "0 20 */2 * *"
+                        }
+                    ]
+                },
+                "filters": {
+                    "readStatus": "unread",
+                    "sender": "jobalerts-noreply@linkedin.com"
+                }
+            },
+            "id": "eae0b390-93e3-4761-8162-c9d340b265a3",
+            "name": "Gmail Trigger",
+            "type": "n8n-nodes-base.gmailTrigger",
+            "typeVersion": 1.4,
+            "position": [
+                0,
+                -352
+            ],
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Gmail account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "operation": "get",
+                "messageId": "={{ $json.id }}",
+                "simple": false,
+                "options": {}
+            },
+            "id": "b5e20eb1-af2f-42f7-b1e3-d5cb344ed379",
+            "name": "Get a message",
+            "type": "n8n-nodes-base.gmail",
+            "typeVersion": 2.2,
+            "position": [
+                224,
+                -352
+            ],
+            "webhookId": "4d7e4d09-ec85-4699-b967-58166ba4ff91",
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Gmail account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 3
+                    },
+                    "conditions": [
+                        {
+                            "id": "206c0c2a-14b0-4c4b-b441-4752290ecc39",
+                            "leftValue": "={{ $json.text }}",
+                            "rightValue": "Your job alert has been created",
+                            "operator": {
+                                "type": "string",
+                                "operation": "notContains"
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "id": "bc579fc7-a677-4c8c-baae-9978128c4105",
+            "name": "if its a job searching mails",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.3,
+            "position": [
+                448,
+                -352
+            ]
+        },
+        {
+            "parameters": {
+                "jsCode": "// Works with Claude (merged_response / content[]) and OpenAI output shapes\nfunction getModelText(json) {\n  if (typeof json?.merged_response === 'string') return json.merged_response;\n  if (Array.isArray(json?.content)) {\n    const t = json.content.filter(c => c.type === 'text').map(c => c.text).join('');\n    if (t) return t;\n  }\n  if (json?.output?.[0]?.content?.[0]?.text) return json.output[0].content[0].text;\n  if (typeof json?.output_text === 'string') return json.output_text;\n  if (typeof json?.output === 'string') return json.output;\n  if (typeof json?.text === 'string') return json.text;\n  return '';\n}\n\n// Process EVERY alert email (several can arrive between runs)\nconst results = [];\nconst seen = new Set(); // skip the same job appearing in several alert emails\n\n$input.all().forEach((item, index) => {\n  const raw = getModelText(item.json);\n\n  // Remove possible ```json ... ``` wrappers\n  const cleaned = raw\n    .replace(/^```json\\s*/i, '')\n    .replace(/^```\\s*/i, '')\n    .replace(/```$/i, '')\n    .trim();\n\n  let data;\n  try {\n    data = JSON.parse(cleaned);\n  } catch (e) {\n    return; // skip an email the model couldn't parse\n  }\n\n  for (const job of (data.jobs || [])) {\n    let cleanUrl = job.job_url || '';\n    // Remove LinkedIn tracking parameters\n    if (cleanUrl) cleanUrl = cleanUrl.split('?')[0];\n\n    // LinkedIn job ID (or the URL / title+company) identifies a job\n    const idMatch = cleanUrl.match(/jobs\\/view\\/(\\d+)/);\n    const key = idMatch ? idMatch[1] : (cleanUrl || `${job.job_title}|${job.company}`).toLowerCase();\n    if (seen.has(key)) continue;\n    seen.add(key);\n\n    results.push({\n      json: {\n        job_title: job.job_title,\n        company: job.company,\n        location: job.location,\n        job_url: cleanUrl\n      },\n      pairedItem: { item: index } // keeps the link to the source email\n    });\n  }\n});\n\nreturn results;\n"
+            },
+            "id": "e90ec326-50d4-4d44-abba-25d9c6378a78",
+            "name": "filter Jobs",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                1024,
+                -352
+            ]
+        },
+        {
+            "parameters": {
+                "modelId": {
+                    "__rl": true,
+                    "mode": "list",
+                    "value": "claude-sonnet-5-5",
+                    "cachedResultName": "claude-sonnet-5-5"
+                },
+                "messages": {
+                    "values": [
+                        {
+                            "content": "=You are identifying the exact public job posting for a job originally found through a LinkedIn Job Alert.\n\nORIGINAL JOB:\n\nJob title:\n{{ $('filter Jobs').item.json.job_title }}\n\nCompany:\n{{ $('filter Jobs').item.json.company }}\n\nLocation:\n{{ $('filter Jobs').item.json.location }}\n\nOriginal LinkedIn URL:\n{{ $('filter Jobs').item.json.job_url }}\n\nTAVILY SEARCH RESULTS:\n\n{{ JSON.stringify($json) }}\n\nYOUR TASK:\n\nReview the provided search results and determine whether any result is the exact same vacancy or clearly the same job posting.\n\nSOURCE PRIORITY:\n\n1. Official company careers website\n2. Official ATS platform such as Greenhouse, Lever, Workday, Comeet, Ashby, SmartRecruiters, or similar\n3. Reputable external job board\n\nMATCHING RULES:\n\n- The company must match the original company.\n- The job title must match exactly or be clearly equivalent.\n- The location should be compatible with the original job.\n- Do not choose another role simply because it contains similar keywords.\n- Prefer the official company careers page or ATS whenever available.\n- Do not invent URLs.\n- source_url MUST be a URL that appears in the Tavily search results.\n- Do not return the original LinkedIn URL as source_url.\n- If the only matching result is LinkedIn, return posting_found = false.\n- If there is meaningful uncertainty about whether the result is the same vacancy, return posting_found = false.\n- It is better to return false than to attach the wrong job description.\n\nSINGLE-POSTING RULE (very important):\n\n- source_url must be the page of ONE specific job posting, where the full description of that one vacancy is shown.\n- REJECT careers home pages (e.g. company.com/careers), \"content\" or \"about\" pages, company profile pages, job search result pages, location/category listing pages, and any page that lists many jobs.\n- Good URLs usually contain a job ID or a job-specific path (e.g. /jobs/12345/..., /job/..., /job-details/..., greenhouse.io/.../jobs/123, myworkdayjobs.com/.../job/...).\n- REJECT any linkedin.com URL, including country subdomains like il.linkedin.com.\n- If the matching result's title shows a different seniority (e.g. \"Senior ...\" when the original is not senior), it is NOT the same vacancy.\n\nIf a confident match is found, return ONLY valid JSON:\n\n{\n  \"company_name\": \"{{ $('filter Jobs').item.json.company }}\",\n  \"posting_found\": true,\n  \"source_url\": \"https://example.com/job\",\n  \"source_type\": \"OFFICIAL_COMPANY\",\n  \"match_confidence\": \"HIGH\",\n  \"reason\": \"Brief explanation of why this result matches the original vacancy.\"\n}\n\nsource_type must be exactly one of:\n\n\"OFFICIAL_COMPANY\"\n\"ATS\"\n\"JOB_BOARD\"\n\nmatch_confidence must be exactly one of:\n\n\"HIGH\"\n\"MEDIUM\"\n\nIf no result can be confidently matched, return ONLY:\n\n{\n  \"posting_found\": false,\n  \"source_url\": \"\",\n  \"source_type\": \"\",\n  \"match_confidence\": \"LOW\",\n  \"reason\": \"No public search result could be confidently matched to the original vacancy.\"\n}\n\nReturn only valid JSON.\nDo not use Markdown.\nDo not wrap the response in ```json.\nDo not include text outside the JSON object."
+                        }
+                    ]
+                },
+                "options": {
+                    "includeMergedResponse": true,
+                    "maxTokens": 4096
+                }
+            },
+            "id": "61d67d16-c83b-40e8-a143-6a9ea0cd1c8f",
+            "name": "verifying from query",
+            "type": "@n8n/n8n-nodes-langchain.anthropic",
+            "typeVersion": 1,
+            "position": [
+                1472,
+                -352
+            ],
+            "credentials": {
+                "anthropicApi": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Anthropic account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 3
+                    },
+                    "conditions": [
+                        {
+                            "id": "cedbf6b0-9711-4551-9ea8-aeedad7af2cd",
+                            "leftValue": "={{ JSON.parse(($json.merged_response ?? $json.content?.find(c => c.type === 'text')?.text ?? $json.output?.[0]?.content?.[0]?.text ?? '').replace(/^\\s*```(?:json)?\\s*/i, '').replace(/\\s*```\\s*$/, '')).posting_found === true }}",
+                            "rightValue": "true",
+                            "operator": {
+                                "type": "boolean",
+                                "operation": "true",
+                                "singleValue": true
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "id": "ac442bfd-9332-4d6f-a9ca-1a6bd960edea",
+            "name": "IF FOUND URL",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.3,
+            "position": [
+                1824,
+                -352
+            ]
+        },
+        {
+            "parameters": {
+                "mode": "runOnceForEachItem",
+                "jsCode": "// ======================================================\n// 1. ORIGINAL LINKEDIN JOB\n// ======================================================\n\nconst job = $('filter Jobs').item.json;\n\n\n// ======================================================\n// 2. GET THE RESULT FROM \"verifying from query\"\n// ======================================================\n\nconst verifierJson = $('verifying from query').item.json;\n\n// Works with Claude (merged_response / content[]) and OpenAI output shapes\nfunction getModelText(json) {\n  if (typeof json?.merged_response === 'string') return json.merged_response;\n  if (Array.isArray(json?.content)) {\n    const t = json.content.filter(c => c.type === 'text').map(c => c.text).join('');\n    if (t) return t;\n  }\n  if (json?.output?.[0]?.content?.[0]?.text) return json.output[0].content[0].text;\n  if (typeof json?.output_text === 'string') return json.output_text;\n  if (typeof json?.output === 'string') return json.output;\n  if (typeof json?.text === 'string') return json.text;\n  return '';\n}\n\nlet verification = {\n  posting_found: false,\n  source_url: '',\n  source_type: '',\n  match_confidence: 'LOW',\n  reason: ''\n};\n\ntry {\n  let raw = getModelText(verifierJson)\n    .replace(/^\\s*```(?:json)?\\s*/i, '')\n    .replace(/\\s*```\\s*$/i, '')\n    .trim();\n  const a = raw.indexOf('{'), b = raw.lastIndexOf('}');\n  if (a !== -1 && b !== -1) raw = raw.slice(a, b + 1);\n  verification = JSON.parse(raw);\n} catch (error) {\n  verification.reason = 'Verifier output could not be parsed.';\n}\n\n\n// ======================================================\n// 3. GET CONTENT RETURNED BY TAVILY EXTRACT\n//    (only when this item actually went through Extract)\n// ======================================================\n\nlet pageText = '';\n\nif (verification.posting_found === true) {\n  if (Array.isArray($json.results) && $json.results.length > 0) {\n    pageText = $json.results[0].raw_content || $json.results[0].content || '';\n  }\n  if (!pageText && typeof $json.raw_content === 'string') pageText = $json.raw_content;\n  if (!pageText && typeof $json.content === 'string') pageText = $json.content;\n  if (!pageText && typeof $json.extracted_content === 'string') pageText = $json.extracted_content;\n}\n\n\n// ======================================================\n// 4. CLEAN THE EXTRACTED PAGE (HTML + markdown clutter)\n// ======================================================\n\npageText = String(pageText)\n  .replace(/<script[\\s\\S]*?<\\/script>/gi, ' ')\n  .replace(/<style[\\s\\S]*?<\\/style>/gi, ' ')\n  .replace(/<noscript[\\s\\S]*?<\\/noscript>/gi, ' ')\n  .replace(/<[^>]+>/g, ' ')\n  .replace(/!\\[[^\\]]*\\]\\([^)]*\\)/g, ' ')        // markdown images\n  .replace(/\\[([^\\]]*)\\]\\([^)]*\\)/g, '$1')      // markdown links -> text\n  .replace(/https?:\\/\\/\\S+/g, ' ')              // bare URLs\n  .replace(/&nbsp;/gi, ' ')\n  .replace(/&amp;/gi, '&')\n  .replace(/&quot;/gi, '\"')\n  .replace(/&#39;/gi, \"'\")\n  .replace(/\\s+/g, ' ')\n  .trim();\n\n\n// ======================================================\n// 5. CHECK THE PAGE REALLY IS ABOUT THIS JOB\n// ======================================================\n\nconst norm = s => String(s || '').toLowerCase().replace(/[^a-z0-9\\u0590-\\u05ff]+/g, ' ').trim();\nconst pageNorm = norm(pageText);\nconst titleWords = norm(job.job_title).split(' ').filter(w => w.length > 1);\nconst foundWords = titleWords.filter(w => pageNorm.includes(w));\nconst titleCoverage = titleWords.length ? foundWords.length / titleWords.length : 0;\nconst companyFirstWord = norm(job.company).split(' ')[0] || '';\nconst companyOnPage = companyFirstWord ? pageNorm.includes(companyFirstWord) : false;\n\n// Start the text near where the job title first appears (skips site menus)\nconst firstWord = titleWords[0];\nif (firstWord) {\n  const idx = pageText.toLowerCase().indexOf(String(job.job_title).toLowerCase().slice(0, 20));\n  if (idx > 300) pageText = pageText.slice(idx - 300);\n}\n\n// Prevent huge prompts / unnecessary cost\npageText = pageText.slice(0, 15000);\n\nlet rejectReason = '';\nif (verification.posting_found !== true) rejectReason = 'No matching posting found by verifier.';\nelse if (/linkedin\\.com/i.test(verification.source_url || '')) rejectReason = 'Source is LinkedIn (not allowed).';\nelse if (pageText.length < 800) rejectReason = 'Extracted page is too short to be a job description.';\nelse if (titleCoverage < 0.8) rejectReason = 'Job title not found on the extracted page.';\nelse if (!companyOnPage) rejectReason = 'Company name not found on the extracted page.';\n\nconst hasJobDescription = rejectReason === '';\n\n\n// ======================================================\n// 6. OUTPUT ONE STANDARD OBJECT FOR THE RATING MODEL\n// ======================================================\n\nreturn {\n  json: {\n    job_title: job.job_title || '',\n    company: job.company || '',\n    location: job.location || '',\n    job_url: job.job_url || '',\n\n    posting_found: hasJobDescription,\n    source_url: hasJobDescription ? (verification.source_url || '') : '',\n    source_type: hasJobDescription ? (verification.source_type || '') : '',\n    match_confidence: verification.match_confidence || 'LOW',\n    verification_reason: verification.reason || '',\n\n    job_page_text: hasJobDescription ? pageText : '',\n    has_job_description: hasJobDescription,\n\n    // Debugging\n    description_reject_reason: rejectReason,\n    verifier_source_url: verification.source_url || '',\n    title_coverage: Math.round(titleCoverage * 100) / 100,\n    extracted_characters: hasJobDescription ? pageText.length : 0\n  }\n};"
+            },
+            "id": "8c181b7d-e01c-4c67-8d93-d725b702c1c1",
+            "name": "prepare for job rating",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                2272,
+                -352
+            ]
+        },
+        {
+            "parameters": {
+                "modelId": {
+                    "__rl": true,
+                    "mode": "list",
+                    "value": "claude-sonnet-5-5",
+                    "cachedResultName": "claude-sonnet-5-5"
+                },
+                "messages": {
+                    "values": [
+                        {
+                            "content": "=You are evaluating how suitable a job is for a Computer Science student who is looking primarily for junior, student, graduate, or entry-level roles in:\n\n- Software Engineering\n- Backend Development\n- Full-Stack Development\n- AI / GenAI\n- AI Automation\n- System Integration\n- QA / Software Testing\n- Other closely related technical positions\n\n\n==================================================\nCANDIDATE PROFILE\n==================================================\n\n[CANDIDATE PROFILE REDACTED FOR PUBLIC REPO - originally listed the candidate's programming languages, frameworks, AI/automation tools, and systems experience. Replace this block with your own skills and background before using.]\n\nIMPORTANT:\nDo NOT invent candidate experience, technologies, certifications, education, achievements, years of experience, or professional AI/ML experience that are not explicitly listed above.\n\n\n==================================================\nJOB INFORMATION\n==================================================\n\nJob title:\n{{ $json.job_title }}\n\nCompany:\n{{ $json.company }}\n\nLocation:\n{{ $json.location }}\n\nOriginal job URL:\n{{ $json.job_url }}\n\nWas a full public job description successfully found?\n{{ $json.has_job_description }}\n\nPublic source URL:\n{{ $json.source_url }}\n\nJob posting content:\n{{ $json.job_page_text }}\n\n\n==================================================\nYOUR TASK\n==================================================\n\nEvaluate how suitable this job is for the candidate.\n\nYour evaluation should reflect whether the candidate could realistically apply for this position now.\n\nDo not simply match keywords.\n\nConsider:\n- Seniority\n- Required professional experience\n- Mandatory technical skills\n- Preferred / nice-to-have skills\n- Education requirements\n- Programming languages\n- Frameworks\n- Infrastructure / DevOps requirements\n- AI / ML / LLM requirements\n- QA / testing requirements\n- System / integration requirements\n- Management responsibilities\n- Location and work-model restrictions when relevant\n\n\n==================================================\nIF A FULL JOB DESCRIPTION WAS FOUND\n==================================================\n\nIf:\n\n{{ $json.has_job_description }}\n\nis true:\n\nBase the evaluation primarily on the actual job description.\n\nIdentify the difference between:\n\n1. Mandatory requirements\n2. Preferred / nice-to-have requirements\n\nDo NOT heavily penalize the candidate for missing a preferred requirement.\n\nDO penalize strongly when the candidate is missing a clearly mandatory requirement.\n\nPay particular attention to required years of professional experience.\n\nExamples:\n\n- \"1+ years experience\" is a relatively small gap for a strong junior candidate\n- \"2+ years\" should lower the score if clearly mandatory\n- \"3+ years\" should significantly lower the score\n- \"5+ years\" should heavily lower the score\n- Senior / Lead / Principal / Manager roles should normally receive a low score unless the job description clearly indicates otherwise\n\nDo not treat university projects or military technical experience as equivalent to several years of professional software-development experience unless the job itself allows equivalent experience.\n\n\n==================================================\nIF NO FULL JOB DESCRIPTION WAS FOUND\n==================================================\n\nIf:\n\n{{ $json.has_job_description }}\n\nis false:\n\nEvaluate using only:\n- job title\n- company\n- location\n\nDo NOT invent:\n- required technologies\n- required years of experience\n- education requirements\n- responsibilities\n- seniority that is not apparent from the title\n\nThe confidence must be LOW.\n\nBe conservative with the score.\n\nA job should generally NOT receive a score above 75 when there is no job description unless the title itself clearly indicates a student, internship, graduate, junior, or entry-level position.\n\n\n==================================================\nSENIORITY CLASSIFICATION\n==================================================\n\nrole_seniority must be exactly one of:\n\n\"STUDENT\"\n\"INTERN\"\n\"ENTRY_LEVEL\"\n\"JUNIOR\"\n\"MID\"\n\"SENIOR\"\n\"LEAD\"\n\"PRINCIPAL\"\n\"MANAGER\"\n\"UNKNOWN\"\n\nInfer seniority from both the job title and the actual requirements.\n\n\n==================================================\nREQUIRED YEARS OF EXPERIENCE\n==================================================\n\nrequired_years_experience must be a short string, e.g. \"0\", \"1+\", \"2+\", \"3-5\", \"UNKNOWN\".\n\nUse only what is actually stated or clearly supported by the job posting.\n\n\n==================================================\nSCORING GUIDELINES\n==================================================\n\n90-100: Excellent fit (student / junior / entry-level role, candidate matches nearly all requirements)\n80-89: Strong fit, small gaps\n70-79: Good / realistic fit\n60-69: Possible fit, meaningful gaps\n40-59: Weak fit\n0-39: Poor fit (senior role, major experience gap, management-heavy, or clearly different field)\n\n\n==================================================\nRECOMMENDATION RULES\n==================================================\n\nIf fit_score >= 70: recommendation = \"APPLY\"\nIf fit_score is between 55 and 69: recommendation = \"MAYBE\"\nIf fit_score < 55: recommendation = \"DO_NOT_APPLY\"\n\n\n==================================================\nOUTPUT FORMAT\n==================================================\n\nReturn ONLY one valid JSON object:\n\n{\n  \"job_title\": \"{{ $json.job_title }}\",\n  \"company\": \"{{ $json.company }}\",\n  \"location\": \"{{ $json.location }}\",\n  \"job_url\": \"{{ $json.job_url }}\",\n  \"fit_score\": 0,\n  \"recommendation\": \"APPLY\",\n  \"confidence\": \"HIGH\",\n  \"role_seniority\": \"UNKNOWN\",\n  \"required_years_experience\": \"UNKNOWN\",\n  \"reason\": \"\",\n  \"matching_skills\": [],\n  \"missing_requirements\": [],\n  \"mandatory_requirements_missing\": [],\n  \"description_used\": true\n}\n\nDo not output Markdown. Do not use ```json. Do not include commentary before or after the JSON. Do not invent information."
+                        }
+                    ]
+                },
+                "options": {
+                    "includeMergedResponse": true,
+                    "maxTokens": 4096
+                }
+            },
+            "id": "116f5abe-c30a-4686-85cd-a04e264d5357",
+            "name": "rating jobs",
+            "type": "@n8n/n8n-nodes-langchain.anthropic",
+            "typeVersion": 1,
+            "position": [
+                2496,
+                -352
+            ],
+            "credentials": {
+                "anthropicApi": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Anthropic account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "jsCode": "const ratingItems = $input.all();\nconst jobItems = $(\"prepare for job rating\").all();\n\nfunction getModelText(json) {\n  if (typeof json?.merged_response === 'string') return json.merged_response;\n  if (Array.isArray(json?.content)) {\n    const t = json.content.filter(c => c.type === 'text').map(c => c.text).join('');\n    if (t) return t;\n  }\n  if (json?.output?.[0]?.content?.[0]?.text) return json.output[0].content[0].text;\n  if (typeof json?.output_text === 'string') return json.output_text;\n  if (typeof json?.output === 'string') return json.output;\n  if (typeof json?.text === 'string') return json.text;\n  return '';\n}\n\nfunction parseModelJson(raw) {\n  if (!raw) throw new Error(\"Rating model returned empty output\");\n  let cleaned = raw.trim()\n    .replace(/^```json\\s*/i, \"\")\n    .replace(/^```\\s*/i, \"\")\n    .replace(/```$/i, \"\")\n    .trim();\n  const firstBrace = cleaned.indexOf(\"{\");\n  const lastBrace = cleaned.lastIndexOf(\"}\");\n  if (firstBrace !== -1 && lastBrace !== -1) cleaned = cleaned.slice(firstBrace, lastBrace + 1);\n  cleaned = cleaned.replace(/,\\s*}/g, \"}\").replace(/,\\s*]/g, \"]\");\n  return JSON.parse(cleaned);\n}\n\nreturn ratingItems.map((item, index) => {\n  const job = jobItems[index]?.json || {};\n  let rating = {};\n  let parseError = false;\n  let parseErrorMessage = \"\";\n  const raw = getModelText(item.json);\n  try {\n    rating = parseModelJson(raw);\n  } catch (error) {\n    parseError = true;\n    parseErrorMessage = error.message;\n  }\n  let fitScore = null;\n  if (rating.fit_score !== undefined && rating.fit_score !== null && rating.fit_score !== \"\") {\n    const parsedScore = Number(rating.fit_score);\n    if (!Number.isNaN(parsedScore)) fitScore = parsedScore;\n  }\n  return {\n    json: {\n      job_title: rating.job_title || job.job_title || \"\",\n      company: rating.company || job.company || \"\",\n      location: rating.location || job.location || \"\",\n      job_url: rating.job_url || job.job_url || \"\",\n      fit_score: fitScore,\n      recommendation: rating.recommendation || \"UNKNOWN\",\n      confidence: rating.confidence || (job.has_job_description ? \"HIGH\" : \"LOW\"),\n      role_seniority: rating.role_seniority || \"UNKNOWN\",\n      required_years_experience: rating.required_years_experience || \"UNKNOWN\",\n      reason: rating.reason || \"\",\n      matching_skills: Array.isArray(rating.matching_skills) ? [...new Set(rating.matching_skills)] : [],\n      missing_requirements: Array.isArray(rating.missing_requirements) ? [...new Set(rating.missing_requirements)] : [],\n      mandatory_requirements_missing: Array.isArray(rating.mandatory_requirements_missing) ? [...new Set(rating.mandatory_requirements_missing)] : [],\n      description_used: typeof rating.description_used === \"boolean\" ? rating.description_used : Boolean(job.has_job_description),\n      has_job_description: Boolean(job.has_job_description),\n      source_url: job.source_url || \"\",\n      parse_error: parseError,\n      parse_error_message: parseErrorMessage\n    }\n  };\n});"
+            },
+            "id": "3b4f9674-2d03-49e0-88cd-234e977870c2",
+            "name": "cleaner ratings",
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                2848,
+                -352
+            ]
+        },
+        {
+            "parameters": {
+                "operation": "markAsRead",
+                "messageId": "={{ $('Gmail Trigger').item.json.id }}"
+            },
+            "id": "c2cc3d80-aca9-452e-9b32-1c2813f156da",
+            "name": "Mark a message as read",
+            "type": "n8n-nodes-base.gmail",
+            "typeVersion": 2.2,
+            "position": [
+                3072,
+                -352
+            ],
+            "webhookId": "59f49cbd-0889-4e3e-b0d4-b872715fe183",
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Gmail account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "operation": "sendAndWait",
+                "sendTo": "you@example.com",
+                "subject": "HIGH FIT JOB",
+                "message": "=<h2>{{ $('cleaner ratings').item.json.job_title }}</h2>\n\n<p><strong>Company:{{ $('cleaner ratings').item.json.company }}</strong></p>\n<p><strong>Location:{{ $('cleaner ratings').item.json.location }}</strong> </p>\n<p><strong>Fit score:{{ $('cleaner ratings').item.json.fit_score }}</strong> </p>\n<p><strong>Recommendation:{{ $('cleaner ratings').item.json.recommendation }}</strong> </p>\n<p><strong>Reason:{{ $('cleaner ratings').item.json.reason }}</strong> </p>\n\n<p>\n<a href=\"{{ $('cleaner ratings').item.json.source_url || $('cleaner ratings').item.json.job_url }}\" style=\"display:inline-block;background:#1a73e8;color:#ffffff;padding:10px 18px;border-radius:6px;text-decoration:none;font-weight:bold;\">\n  {{ $('cleaner ratings').item.json.source_url ? 'Apply on company site' : 'Apply on LinkedIn' }}\n</a>\n</p>\n\n<p>\n<a href=\"{{ $('cleaner ratings').item.json.job_url }}\">\n  View job on LinkedIn\n</a>\n</p>",
+                "approvalOptions": {
+                    "values": {
+                        "approvalType": "double",
+                        "approveLabel": "APPLY",
+                        "disapproveLabel": "DISAPPROVE"
+                    }
+                },
+                "options": {
+                    "appendAttribution": false
+                }
+            },
+            "id": "4cad26bc-b14a-442d-99aa-6364c29771a5",
+            "name": "Send message and wait for response",
+            "type": "n8n-nodes-base.gmail",
+            "typeVersion": 2.2,
+            "position": [
+                3520,
+                -352
+            ],
+            "webhookId": "4eeb7705-f293-4a17-81aa-1f148c58e20e",
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Gmail account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 3
+                    },
+                    "conditions": [
+                        {
+                            "id": "82323d34-81bf-4631-94a0-9fd83a16c15e",
+                            "leftValue": "={{ $json.data.approved }}",
+                            "rightValue": true,
+                            "operator": {
+                                "type": "boolean",
+                                "operation": "equals"
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "id": "f9bef191-f809-4f86-a442-785a08db5e4d",
+            "name": "if applied",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.3,
+            "position": [
+                3744,
+                -352
+            ]
+        },
+        {
+            "parameters": {
+                "operation": "appendOrUpdate",
+                "documentId": {
+                    "__rl": true,
+                    "value": "YOUR_GOOGLE_SHEET_ID",
+                    "mode": "list",
+                    "cachedResultName": "n8n job hunter"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "gid=0",
+                    "mode": "list",
+                    "cachedResultName": "jobs for me"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "applied_status": "={{ true }}",
+                        "job_url ": "={{ $('cleaner ratings').item.json.job_url }}"
+                    },
+                    "matchingColumns": [
+                        "job_url "
+                    ],
+                    "schema": [
+                        {
+                            "id": "job_title ",
+                            "displayName": "job_title ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "company ",
+                            "displayName": "company ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "location ",
+                            "displayName": "location ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "job_url ",
+                            "displayName": "job_url ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "fit_score ",
+                            "displayName": "fit_score ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "applied_status",
+                            "displayName": "applied_status",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "date_found",
+                            "displayName": "date_found",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        }
+                    ],
+                    "attemptToConvertTypes": false,
+                    "convertFieldsToString": false
+                },
+                "options": {}
+            },
+            "id": "6d48e94d-93a6-4d8c-807b-b799fa6cc07f",
+            "name": "change to applied",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.7,
+            "position": [
+                3968,
+                -448
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Google Sheets account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "operation": "appendOrUpdate",
+                "documentId": {
+                    "__rl": true,
+                    "value": "YOUR_GOOGLE_SHEET_ID",
+                    "mode": "list",
+                    "cachedResultName": "n8n job hunter"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "gid=0",
+                    "mode": "list",
+                    "cachedResultName": "jobs for me"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "applied_status": "FALSE",
+                        "job_url ": "={{ $('cleaner ratings').item.json.job_url }}"
+                    },
+                    "matchingColumns": [
+                        "job_url "
+                    ],
+                    "schema": [
+                        {
+                            "id": "job_title ",
+                            "displayName": "job_title ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "company ",
+                            "displayName": "company ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "location ",
+                            "displayName": "location ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "job_url ",
+                            "displayName": "job_url ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "fit_score ",
+                            "displayName": "fit_score ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "applied_status",
+                            "displayName": "applied_status",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "date_found",
+                            "displayName": "date_found",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        }
+                    ],
+                    "attemptToConvertTypes": false,
+                    "convertFieldsToString": false
+                },
+                "options": {}
+            },
+            "id": "7b219bc2-8340-40cb-8caf-9fd8b29f97c9",
+            "name": "Append to False",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.7,
+            "position": [
+                3968,
+                -256
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Google Sheets account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "operation": "appendOrUpdate",
+                "documentId": {
+                    "__rl": true,
+                    "value": "YOUR_GOOGLE_SHEET_ID",
+                    "mode": "list",
+                    "cachedResultName": "n8n job hunter"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": "gid=0",
+                    "mode": "list",
+                    "cachedResultName": "jobs for me"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "job_url ": "={{ $('cleaner ratings').item.json.job_url }}",
+                        "job_title ": "={{ $('cleaner ratings').item.json.job_title }}",
+                        "company ": "={{ $('cleaner ratings').item.json.company }}",
+                        "fit_score ": "={{ $('cleaner ratings').item.json.fit_score }}",
+                        "date_found": "={{$now}}",
+                        "location ": "={{ $('cleaner ratings').item.json.location }}"
+                    },
+                    "matchingColumns": [
+                        "job_url "
+                    ],
+                    "schema": [
+                        {
+                            "id": "job_title ",
+                            "displayName": "job_title ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "company ",
+                            "displayName": "company ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "location ",
+                            "displayName": "location ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "job_url ",
+                            "displayName": "job_url ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "fit_score ",
+                            "displayName": "fit_score ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "applied_status",
+                            "displayName": "applied_status",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "date_found",
+                            "displayName": "date_found",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        }
+                    ],
+                    "attemptToConvertTypes": false,
+                    "convertFieldsToString": false
+                },
+                "options": {}
+            },
+            "id": "b56638bf-5ad0-4b15-95bd-12b65e06cc12",
+            "name": "append rows in sheets to add the new jobs",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.7,
+            "position": [
+                3520,
+                -544
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Google Sheets account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "operation": "appendOrUpdate",
+                "documentId": {
+                    "__rl": true,
+                    "value": "YOUR_GOOGLE_SHEET_ID",
+                    "mode": "list",
+                    "cachedResultName": "n8n job hunter"
+                },
+                "sheetName": {
+                    "__rl": true,
+                    "value": 822753952,
+                    "mode": "list",
+                    "cachedResultName": "jobs not for me"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "job_title ": "={{ $('cleaner ratings').item.json.job_title }}",
+                        "company ": "={{ $('cleaner ratings').item.json.company }}",
+                        "location ": "={{ $('cleaner ratings').item.json.location }}",
+                        "job_url ": "={{ $('cleaner ratings').item.json.job_url }}",
+                        "fit_score ": "={{ $('cleaner ratings').item.json.fit_score }}",
+                        "applied_status": "={{ $('cleaner ratings').item.json.recommendation }}",
+                        "Reason": "={{ $('cleaner ratings').item.json.reason }}"
+                    },
+                    "matchingColumns": [
+                        "job_url "
+                    ],
+                    "schema": [
+                        {
+                            "id": "job_title ",
+                            "displayName": "job_title ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "company ",
+                            "displayName": "company ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "location ",
+                            "displayName": "location ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "job_url ",
+                            "displayName": "job_url ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true,
+                            "removed": false
+                        },
+                        {
+                            "id": "fit_score ",
+                            "displayName": "fit_score ",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "applied_status",
+                            "displayName": "applied_status",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        },
+                        {
+                            "id": "Reason",
+                            "displayName": "Reason",
+                            "required": false,
+                            "defaultMatch": false,
+                            "display": true,
+                            "type": "string",
+                            "canBeUsedToMatch": true
+                        }
+                    ],
+                    "attemptToConvertTypes": false,
+                    "convertFieldsToString": false
+                },
+                "options": {}
+            },
+            "id": "6d9d5b3b-2915-4a53-8085-3e5ea955dd20",
+            "name": "Append or update row in sheet",
+            "type": "n8n-nodes-base.googleSheets",
+            "typeVersion": 4.7,
+            "position": [
+                3520,
+                -160
+            ],
+            "credentials": {
+                "googleSheetsOAuth2Api": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Google Sheets account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "query": "=\"{{ $json.job_title }}\" {{ $json.company }} {{ $json.location }} job",
+                "options": {
+                    "topic": "general",
+                    "search_depth": "advanced",
+                    "max_results": 10,
+                    "include_raw_content": false
+                }
+            },
+            "type": "@tavily/n8n-nodes-tavily.tavily",
+            "typeVersion": 1,
+            "position": [
+                1248,
+                -352
+            ],
+            "id": "6f3cf152-022c-4aaa-9a2e-1cddb90d6cb9",
+            "name": "Search",
+            "credentials": {
+                "tavilyApi": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Tavily account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "resource": "extract",
+                "urls": [
+                    "={{ JSON.parse(($json.merged_response ?? $json.content?.find(c => c.type === 'text')?.text ?? $json.output?.[0]?.content?.[0]?.text ?? '').replace(/^\\s*```(?:json)?\\s*/i, '').replace(/\\s*```\\s*$/, '')).source_url.replace(/\\/apply(\\/.*)?$/i, '') }}"
+                ],
+                "options": {
+                    "extract_depth": "advanced"
+                }
+            },
+            "type": "@tavily/n8n-nodes-tavily.tavily",
+            "typeVersion": 1,
+            "position": [
+                2048,
+                -416
+            ],
+            "id": "f9499173-371a-4121-a271-fd0984cea487",
+            "name": "Extract",
+            "credentials": {
+                "tavilyApi": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Tavily account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 3
+                    },
+                    "conditions": [
+                        {
+                            "id": "a1b2c3d4-0000-0000-0000-000000000001",
+                            "leftValue": "={{ $('cleaner ratings').item.json.fit_score }}",
+                            "rightValue": 65,
+                            "operator": {
+                                "type": "number",
+                                "operation": "gte"
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            },
+            "id": "18eee08b-77d2-4c23-ab5c-35e52c13287d",
+            "name": "Score above 65",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.3,
+            "position": [
+                3296,
+                -352
+            ]
+        },
+        {
+            "parameters": {
+                "modelId": {
+                    "__rl": true,
+                    "mode": "list",
+                    "value": "claude-haiku-4-5-20251001",
+                    "cachedResultName": "claude-haiku-4-5-20251001"
+                },
+                "messages": {
+                    "values": [
+                        {
+                            "content": "=You are extracting job listings from a LinkedIn Job Alert email.\n\nIMPORTANT:\n- Read the ENTIRE email.\n- Extract EVERY job listing in the email.\n- Do not stop after the first job.\n- Each separate company/job card is a separate job.\n- Ignore introductory LinkedIn text such as \"Your job alert has been created\".\n- Do not invent information.\n- If there are 3 jobs, return 3 jobs. If there are 10 jobs, return 10 jobs.\n\nFor every job return:\n- job_title\n- company\n- location\n- job_url\n\nReturn ONLY valid JSON in exactly this format:\n\n{\n  \"jobs\": [\n    {\n      \"job_title\": \"\",\n      \"company\": \"\",\n      \"location\": \"\",\n      \"job_url\": \"\"\n    }\n  ]\n}\n\nEMAIL START\n{{ $json.text }}\nEMAIL END"
+                        }
+                    ]
+                },
+                "options": {
+                    "includeMergedResponse": true,
+                    "maxTokens": 4096
+                }
+            },
+            "id": "7fab8f79-f911-4b43-9655-cbfc2a18260a",
+            "name": "extracting jobs",
+            "type": "@n8n/n8n-nodes-langchain.anthropic",
+            "typeVersion": 1,
+            "position": [
+                672,
+                -352
+            ],
+            "credentials": {
+                "anthropicApi": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Anthropic account"
+                }
+            }
+        },
+        {
+            "id": "dc5eebd7-67aa-4e3e-8a3c-bfe940e84200",
+            "name": "Start from Mon Oct 5",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 2.3,
+            "position": [
+                112,
+                -160
+            ],
+            "parameters": {
+                "conditions": {
+                    "options": {
+                        "caseSensitive": true,
+                        "leftValue": "",
+                        "typeValidation": "strict",
+                        "version": 3
+                    },
+                    "conditions": [
+                        {
+                            "id": "bd6ed5b4-0874-4e3e-9cae-856397c55bf1",
+                            "leftValue": "={{ $now.toFormat('yyyy-MM-dd') >= '2026-10-05' }}",
+                            "rightValue": "",
+                            "operator": {
+                                "type": "boolean",
+                                "operation": "true",
+                                "singleValue": true
+                            }
+                        }
+                    ],
+                    "combinator": "and"
+                },
+                "options": {}
+            }
+        }
+    ]
+}
